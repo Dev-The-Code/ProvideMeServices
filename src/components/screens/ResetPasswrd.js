@@ -8,7 +8,7 @@ import {
     Dimensions,
     ScrollView,
     TouchableOpacity,
-    
+
 } from 'react-native';
 import styles from '../Styling/ResetPasswordScreenStyle';
 //import TextInputs from '../textInputs/TextInputs'
@@ -22,9 +22,9 @@ class ResetpasswordScreen extends React.Component {
     static navigationOptions = {
         //title: 'Reset Password',
         headerStyle: {
-            backgroundColor: 'black'
+
         },
-        headerTintColor: 'white'
+        headerTintColor: 'black'
     };
     constructor(props) {
         super(props)
@@ -43,16 +43,16 @@ class ResetpasswordScreen extends React.Component {
     resetPassword = async () => {
         const { email, emailValidate } = this.state;
         const { navigate } = this.props.navigation;
-        
+
         console.log('on press')
         if (email == '') {
             Alert.alert('Please fill input field')
             if (emailValidate !== true) {
                 Alert.alert('Please enter correct field')
             }
-         this.setState({
-             emailValidate:false
-         })   
+            this.setState({
+                emailValidate: false
+            })
         }
         else {
             this.setState({ isLoading: true })
@@ -62,15 +62,15 @@ class ResetpasswordScreen extends React.Component {
             console.log(userEmail)
 
             try {
-                
+
                 let getEmails = await HttpUtilsFile.get('getuseremail')
-                console.log('allusers emails >>>',getEmails);
+                console.log('allusers emails >>>', getEmails);
                 let emailCode = getEmails.code;
                 const emailContents = getEmails.content;
-                console.log('email contents >>>',emailContents)
+                console.log('email contents >>>', emailContents)
                 const dataUser = await HttpUtilsFile.post('postemail', userEmail)
                 console.log(dataUser)
-                let resetCode = dataUser.code; 
+                let resetCode = dataUser.code;
                 let emailSentMsg = dataUser.data;
                 if (emailCode) {
                     this.setState({
@@ -88,11 +88,11 @@ class ResetpasswordScreen extends React.Component {
                             //console.log('email matched')
                             this.setState({
                                 emailNotExist: false,
-                                isLoading:false
+                                isLoading: false
                             })
                             navigate('ConfirmResetPassword')
                             this.setState({
-                                email:''
+                                email: ''
                             })
                             break;
                         }
@@ -100,28 +100,28 @@ class ResetpasswordScreen extends React.Component {
                             //console.log('email not matched')
                             this.setState({
                                 emailNotExist: true,
-                                isLoading:false
+                                isLoading: false
                             })
-                            setTimeout(()=>{
+                            setTimeout(() => {
                                 this.setState({
                                     emailNotExist: false
                                 })
-                               },5000) 
+                            }, 5000)
                         }
 
 
-                        }
+                    }
 
 
                 }
-                
-                if(resetCode && !this.state.emailNotExist){
+
+                if (resetCode && !this.state.emailNotExist) {
                     this.setState({
                         isLoading: false
                     })
-                    
+
                     navigate('ConfirmResetPassword');
-                    
+
 
                 }
 
@@ -140,7 +140,7 @@ class ResetpasswordScreen extends React.Component {
             }
             this.setState({
                 email: '',
-        
+
             })
 
         }
@@ -182,19 +182,19 @@ class ResetpasswordScreen extends React.Component {
         //console.log(email);
         return (
             <View style={styles.mainContainer}>
-                <ScrollView style={{backgroundColor: 'black', height: height }} contentContainerStyle={{ flexGrow: 1 }} >
+                <ScrollView style={{ backgroundColor: 'white', height: height }} contentContainerStyle={{ flexGrow: 1 }} >
                     <View style={styles.container}>
                         <View style={styles.resetPasswrdContainer}>
                             <Text style={styles.resetTextStyle}>Reset Password</Text>
                         </View>
                         <Text style={styles.textsStyles}>Enter your GetFitAthletic email to reset password</Text>
-                        
+
                         <Text style={styles.emailTextStyle}>Email</Text>
                         <View style={styles.inputFields}>
                             <TextInput
                                 onChangeText={(text) => {
                                     this.emailHandleFunc(text),
-                                    this.resetPasswordCheckValidate(text, 'email')
+                                        this.resetPasswordCheckValidate(text, 'email')
                                 }}
                                 placeholder="email@gmail.com"
                                 placeholderTextColor="#7e7e7e"
@@ -204,7 +204,7 @@ class ResetpasswordScreen extends React.Component {
                                 style={[styles.inputTextStyle, !this.state.emailValidate ? styles.errorInput : null]}
                             />
                         </View>
-                        
+
                         {emailNotExist && <View style={styles.emailExistContainer}>
                             <Text style={styles.emailNotExistStyle}>
                                 Email is not registerd
@@ -217,7 +217,7 @@ class ResetpasswordScreen extends React.Component {
                                 onPress={() => { this.resetPassword() }}
                             />
                         </View>
-                        
+
                     </View>
                     {isLoading ? <OverlayLoader /> : null}
                 </ScrollView>

@@ -9,6 +9,7 @@ import { thisExpression } from '@babel/types';
 import HttpUtils from '../Services/HttpUtils';
 import Modal from "react-native-modal";
 import Textarea from 'react-native-textarea';
+import { Rating, AirbnbRating } from 'react-native-ratings';
 // const { height } = Dimensions.get('window');
 let checkProfile = false;
 
@@ -289,7 +290,7 @@ class Profile extends React.Component {
             </View>
           </View>
 
-          <TouchableOpacity onPress={() => this.setModalVisible(true)}>
+          <TouchableOpacity style={{ paddingTop: 20 }} onPress={() => this.setModalVisible(true)}>
             <Text>
               Show Modal
         </Text>
@@ -327,6 +328,18 @@ class Profile extends React.Component {
                     </View>
                   </View>
 
+                  <View style={styles.starCont}>
+
+                    <Rating
+                      type='star'
+                      imageSize={40}
+                      selectedColor='#447BBE'
+                      ratingBackgroundColor='red'
+                      // showRating
+                      onFinishRating={this.ratingCompleted}
+                    // style={{ ratingColor: '#447BBE' }}
+                    />
+                  </View>
 
                   <View style={styles.container2}>
                     <Textarea
@@ -334,9 +347,8 @@ class Profile extends React.Component {
                       style={styles.textarea}
                       onChangeText={this.onChange}
                       defaultValue={this.state.text}
-                      maxLength={120}
-                      placeholder={'好玩有趣的，大家同乐，伤感忧闷的，大家同哭。。。'}
-                      placeholderTextColor={'#c7c7c7'}
+                      placeholder={'Add Comments (Optional)'}
+                      placeholderTextColor={'#555555'}
                       underlineColorAndroid={'transparent'}
                     />
                   </View>

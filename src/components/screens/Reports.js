@@ -25,16 +25,16 @@ class Reportscreen extends React.Component {
       gainWeight: '',
       lastWeek: '',
       cureentWeek: '',
-      userID:'',
-      stepCountData:''
+      userID: '',
+      stepCountData: ''
     }
   }
   async componentWillMount() {
     await this.getData();
-    
+
   }
 
-  
+
 
 
   //get data from database
@@ -57,22 +57,22 @@ class Reportscreen extends React.Component {
     let dataExcersice = await HttpUtils.get('getallexerciselog');
     let dataWeight = await HttpUtils.get('getweightlog');
     let userObj = {
-      userId:userId
+      userId: userId
     };
     console.log('user id >>', userObj)
-    let userPedometerData = await HttpUtils.post('getpedometerbyid',userObj);
-    console.log('user pedometer data >>',userPedometerData.content);
+    let userPedometerData = await HttpUtils.post('getpedometerbyid', userObj);
+    console.log('user pedometer data >>', userPedometerData.content);
 
-    if(userPedometerData.code == 200){
-        const userContent =  userPedometerData.content;
-        for(let i in userContent){
-          console.log(userContent[i])
-          const userSteps = userContent[i].stepCount;
-          console.log(userSteps)
-          this.setState({
-            stepCountData:userSteps
-          })
-        }       
+    if (userPedometerData.code == 200) {
+      const userContent = userPedometerData.content;
+      for (let i in userContent) {
+        console.log(userContent[i])
+        const userSteps = userContent[i].stepCount;
+        console.log(userSteps)
+        this.setState({
+          stepCountData: userSteps
+        })
+      }
     }
     // for(let i in userPedometerData){
     //   const dataUser = userPedometerData[i].stepCount;
@@ -225,16 +225,16 @@ class Reportscreen extends React.Component {
     }
   }
   render() {
-    const { dataExcersices, 
-      currentDateDataWeights, 
-      weekAgoDateDataWeights, 
-      loseWeight, 
-      gainWeight, 
-      lastWeek, 
+    const { dataExcersices,
+      currentDateDataWeights,
+      weekAgoDateDataWeights,
+      loseWeight,
+      gainWeight,
+      lastWeek,
       cureentWeek,
       stepCountData
         } = this.state
-    console.log(loseWeight , 'loseWeight')
+    console.log(loseWeight, 'loseWeight')
     let weeklyExcersice = dataExcersices && dataExcersices.map((elem, key) => {
       return (
         <View style={styles.exerciseResultCard}>
@@ -265,9 +265,19 @@ class Reportscreen extends React.Component {
     return (
       <View style={styles.mainContainer}>
         <View style={styles.headingContainer}>
-          <Text style={styles.textStyleOne}>Weekly</Text>
-          <Text style={styles.textStyleTwo}>Report</Text>
+          <Text style={styles.textStyleOne}>Task</Text>
+          <View style={styles.sideHeadCon}>
+            <TouchableOpacity style={styles.schMainCont}>
+              <View style={styles.schCont}>
+                <Text style={styles.textStyleTwo}>Schedule</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Text style={styles.textStyleThree}>History</Text>
+            </TouchableOpacity>
+          </View>
         </View>
+
         {/* <View style={styles.arrowContainer}>
           <TouchableOpacity style={{ marginRight: 20 }}>
             <Image source={require('../icons/left.png')} style={styles.forImgs} /></TouchableOpacity>
@@ -275,25 +285,118 @@ class Reportscreen extends React.Component {
           <TouchableOpacity style={{ marginLeft: 20 }}>
             <Image source={require('../icons/right.png')} style={styles.forImgs} /></TouchableOpacity>
         </View> */}
-        <ScrollView style={{ flex: 1, backgroundColor: 'white', height: height }} contentContainerStyle={{ flexGrow: 1 }}  >
-          <View style={styles.bodyContainer}>
+        <ScrollView style={{ flex: 1, backgroundColor: 'white', height: height }} contentContainerStyle={{ flexGrow: 1 }}>
+          <View style={styles.cardMainContainer}>
+            <View style={styles.mainHeadCont}>
+              <Text style={styles.mainHeadText}>Quran Khuwani</Text>
+            </View>
+
+            <Text style={styles.timeText}>
+              04:00Pm
+            </Text>
+            <Text style={styles.timeTextHead}>
+              Time Slot
+            </Text>
+
+            <View style={styles.secHeadCont}>
+              <View>
+                <Text style={styles.dateText}>
+                  16 November 2019
+                </Text>
+                <Text style={styles.DateTextHead}>
+                  Date
+                </Text>
+              </View>
+            </View>
+
+            <View style={styles.thirdHeadCont}>
+              <View>
+                <Text style={styles.locText}>
+                  DHA Phase 5
+                </Text>
+                <Text style={styles.LocHead}>
+                  Location
+                </Text>
+              </View>
+            </View>
+
+
+            <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'center', }}>
+              <View style={styles.markBtnCont}>
+                <Text style={styles.markText}>
+                  Marks As Completed
+                    </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+
+          {/* 2nd Card */}
+
+          <View style={styles.cardMainContainer}>
+            <View style={styles.mainHeadCont}>
+              <Text style={styles.mainHeadText}>Quran Khuwani</Text>
+            </View>
+
+            <Text style={styles.timeText}>
+              04:00Pm
+            </Text>
+            <Text style={styles.timeTextHead}>
+              Time Slot
+            </Text>
+
+            <View style={styles.secHeadCont}>
+              <View>
+                <Text style={styles.dateText}>
+                  16 November 2019
+                </Text>
+                <Text style={styles.DateTextHead}>
+                  Date
+                </Text>
+              </View>
+            </View>
+
+            <View style={styles.thirdHeadCont}>
+              <View>
+                <Text style={styles.locText}>
+                  DHA Phase 5
+                </Text>
+                <Text style={styles.LocHead}>
+                  Location
+                </Text>
+              </View>
+            </View>
+
+
+            <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'center', }}>
+              <View style={styles.markBtnCont}>
+                <Text style={styles.markText}>
+                  Marks As Completed
+                    </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+
+
+
+
+          {/* <View style={styles.bodyContainer}>
             <View style={styles.cardLeft}>
               <View style={styles.weeklyStepWalk}>
                 <Text style={styles.headingText}>Total steps walked</Text>
                 <View style={styles.spinerContainer}>
-                  <Wheelspiner 
-                  size={65}
-                  width={10}
-                  color={'#FF6200'}
-                  progress={stepCountData > 1 && stepCountData < 250 ? 25 :
-                    stepCountData > 250 && stepCountData < 500 ? 50 :
-                    stepCountData > 500 && stepCountData < 750 ? 75 :
-                    stepCountData > 750 && stepCountData <= 10000 ? 100
-                                : 0
-                }
-                  backgroundColor={'gray'}
-                  animateFromValue={0}
-                  fullColor={'#FF6200'}
+                  <Wheelspiner
+                    size={65}
+                    width={10}
+                    color={'#FF6200'}
+                    progress={stepCountData > 1 && stepCountData < 250 ? 25 :
+                      stepCountData > 250 && stepCountData < 500 ? 50 :
+                        stepCountData > 500 && stepCountData < 750 ? 75 :
+                          stepCountData > 750 && stepCountData <= 10000 ? 100
+                            : 0
+                    }
+                    backgroundColor={'gray'}
+                    animateFromValue={0}
+                    fullColor={'#FF6200'}
                   />
                 </View>
                 <View style={styles.resultContainer}>
@@ -320,7 +423,7 @@ class Reportscreen extends React.Component {
                     <Text style={styles.thisWeek}>This week</Text>
                     <Text style={styles.lastWeek}>Last week</Text>
                   </View>
-                  {loseWeight || loseWeight == 0 || loseWeight != ''?
+                  {loseWeight || loseWeight == 0 || loseWeight != '' ?
                     <View>
                       <Text style={styles.lostKg}>{`${loseWeight} KG`} </Text>
                       <Text style={styles.lostText}>Lost</Text>
@@ -340,9 +443,9 @@ class Reportscreen extends React.Component {
                 {weeklyExcersice}
               </View>
             </View>
-          </View>
+          </View> */}
         </ScrollView>
-      </View>
+      </View >
     );
   }
 }

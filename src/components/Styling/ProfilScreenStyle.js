@@ -243,20 +243,28 @@ const styles = StyleSheet.create({
     //Text Area CSS
     container2: {
         flex: 1,
-        padding: 30,
+        padding: 50,
         justifyContent: 'center',
         alignItems: 'center',
     },
     textareaContainer: {
-        height: 180,
+        height: 100,
+        width: 275,
         padding: 5,
-        backgroundColor: '#F5FCFF',
+        borderRadius: 20,
+        backgroundColor: '#E5E5E5',
     },
     textarea: {
         textAlignVertical: 'top',  // hack android
         height: 170,
         fontSize: 14,
         color: '#333',
+    },
+
+    starCont: {
+        paddingBottom: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 
     viewBlock: {

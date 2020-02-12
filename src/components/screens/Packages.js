@@ -19,7 +19,7 @@ import HttpUtilsFile from '../Services/HttpUtils';
 import Toast, { DURATION } from 'react-native-easy-toast';
 
 import CaloriesSetupBtn from '../buttons/setUpBtn';
-const { heightDimension } = Dimensions.get('window').height;;
+const { heightDimension } = Dimensions.get('window').height;
 
 class PackagesScreen extends React.Component {
     constructor(props) {

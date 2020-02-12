@@ -38,31 +38,31 @@ class Login extends React.Component {
       passwordNotMatch: '',
       psswrdNotMatchShow: false,
       emailAndPasswrd: false,
-      deviceToken:'',
-      errorMessage:''
+      deviceToken: '',
+      errorMessage: ''
     }
     //this.checkUserLogin()
   }
-  componentWillMount(){
+  componentWillMount() {
     this.checkUserLogin();
   }
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.focusListener.remove();
   }
 
   // Start here firebase push notification
-// getTokenPermission=()=>{
-//   const { navigation } = this.props;
-//     this.focusListener = navigation.addListener('didFocus', () => {
-//       this.checkPermission();
-//     });
-// }
-//  componentDidMount() {
-//   this.checkPermission();
-  
-// }
+  // getTokenPermission=()=>{
+  //   const { navigation } = this.props;
+  //     this.focusListener = navigation.addListener('didFocus', () => {
+  //       this.checkPermission();
+  //     });
+  // }
+  //  componentDidMount() {
+  //   this.checkPermission();
 
-   //1
+  // }
+
+  //1
   //  checkPermission = async () =>{
   //   //  console.log('permission function run here')
   //   const enabled = await firebasePushNotification.messaging().hasPermission();
@@ -107,32 +107,32 @@ class Login extends React.Component {
   //   }
   // }
 
-  alreadyUserLogin=()=>{
+  alreadyUserLogin = () => {
     const { navigate } = this.props.navigation;
     const user = firebase.auth().currentUser;
     console.log('user >>', user)
     AsyncStorage.getItem("currentUser").then(value => {
       if (value) {
         navigate('BottomTabe')
-          // let userData = JSON.parse(value);
-          // userData.status = 'Offline'
-          // db.ref(`users/${userData._id}`).update(userData);
+        // let userData = JSON.parse(value);
+        // userData.status = 'Offline'
+        // db.ref(`users/${userData._id}`).update(userData);
       }
-  })
+    })
   }
 
   checkUserLogin = () => {
     const { navigation } = this.props;
-        this.focusListener = navigation.addListener('didFocus', () => {
-          console.log('Login user !!!')
-          this.alreadyUserLogin()
-        });
+    this.focusListener = navigation.addListener('didFocus', () => {
+      console.log('Login user !!!')
+      this.alreadyUserLogin()
+    });
   }
 
 
   loginFunc = async () => {
     const { navigate } = this.props.navigation;
-    const { email, password, emailValidate, passwrdValidate ,deviceToken} = this.state;
+    const { email, password, emailValidate, passwrdValidate, deviceToken } = this.state;
     if (email == '' || password == '') {
       Alert.alert('Please Fill All Fields')
       if (emailValidate !== true || passwrdValidate !== true) {
@@ -150,19 +150,19 @@ class Login extends React.Component {
         // type:'trainny'
       }
       // try {
-        firebase
+      firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then(() =>
-         AsyncStorage.setItem('currentUser',JSON.stringify(userObj)),
-         this.setState({isLoading:false},()=>navigate('BottomTabe'))
-         )
-        .catch(error => this.setState({ 
+          AsyncStorage.setItem('currentUser', JSON.stringify(userObj)),
+        this.setState({ isLoading: false }, () => navigate('Usertype'))
+        )
+        .catch(error => this.setState({
           errorMessage: error.message,
-          emailAndPasswrd:true, 
-          isLoading:false 
+          emailAndPasswrd: true,
+          isLoading: false
         }))
-       
+
       // }
       // catch (error) {
       //   console.log(error)
@@ -221,7 +221,7 @@ class Login extends React.Component {
     })
   }
 
-  
+
 
   render() {
     const { navigate } = this.props.navigation;
@@ -290,7 +290,7 @@ class Login extends React.Component {
           <View style={styles.passMatchContainer}>
             <Text style={styles.passNotMatchStyle}>
               {this.state.errorMessage}
-         </Text>
+            </Text>
           </View> : null}
 
         {psswrdInstruction && <View style={styles.passwrdInstructionContainer}>
@@ -301,13 +301,13 @@ class Login extends React.Component {
         <View style={{ flex: 1 }}></View>
         <View style={{ flexDirection: 'row' }}>
           <View style={{ flex: 1 }}></View>
-          <TouchableOpacity style={styles.loginButtonContainer} onPress={this.loginFunc}>
+          <TouchableOpacity style={styles.loginButtonContainer} onPress={() => navigate('UserType')}>
             <Text style={styles.loginButton}>Log In</Text>
           </TouchableOpacity>
           <View style={{ flex: 1 }}></View>
         </View>
         <View style={{ flex: 2, flexDirection: 'row', justifyContent: 'flex-start', marginTop: 35, marginBottom: 12 }}>
-          <TouchableOpacity style={styles.resetPassContainer} onPress={() => { navigate('ResetpasswordScreen') }} >
+          <TouchableOpacity style={styles.resetPassContainer} onPress={this.loginFunc} >
             <Text style={styles.resetPasswrdTextStyle}>Forgot password ? </Text>
           </TouchableOpacity>
           <View style={{ flex: 1 }}></View>

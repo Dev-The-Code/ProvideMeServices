@@ -17,11 +17,11 @@ import HttpUtilsFile from '../Services/HttpUtils';
 import OverlayLoader from '../Loader/OverlaySpinner';
 import AsyncStorage from '@react-native-community/async-storage';
 //import PhoneCode from 'react-phone-code';
-import PhoneInput from 'react-native-phone-input'
+import PhoneInput from 'react-native-phone-input';
 import firebase from '../Config/Firebase';
 const auth = require('firebase/auth')
 //import 'firebase/firestore';
- const db = firebase.database();
+const db = firebase.database();
 // import firebasePushNotification from 'react-native-firebase';
 //console.log(HttpUtilsFile)
 const { height } = Dimensions.get('window');
@@ -61,8 +61,8 @@ class Signup extends React.Component {
             countryCod: '',
             mobileNo: '',
             deviceToken: '',
-            errorMessage:'',
-            errorMessageState:false
+            errorMessage: '',
+            errorMessageState: false
             // mobileNoAndCode:countryCod + mobileNo,
 
 
@@ -248,20 +248,20 @@ class Signup extends React.Component {
             try {
                 console.log('Click signup database')
                 const password = this.state.cnfrmPasswrd;
-                const email=this.state.email;
-                firebase.auth().createUserWithEmailAndPassword(email , password)
+                const email = this.state.email;
+                firebase.auth().createUserWithEmailAndPassword(email, password)
                     .then(() =>
                         console.log('signup'),
-                        this.setState({ isLoading: false }),
-                        db.ref(`users/`).push(userObj),
-                        AsyncStorage.setItem('currentUser',JSON.stringify(userObj)),
-                        navigate('BottomTabe'),
-                      )
+                    this.setState({ isLoading: false }),
+                    db.ref(`users/`).push(userObj),
+                    AsyncStorage.setItem('currentUser', JSON.stringify(userObj)),
+                    navigate('BottomTabe'),
+                )
                     .catch(error => this.setState({ errorMessage: error.message }),
-                    this.setState({ isLoading: false, errorMessageState:true }),
-                    
-                    )
-                    // navigate('BottomTabe');
+                    this.setState({ isLoading: false, errorMessageState: true }),
+
+                )
+                // navigate('BottomTabe');
 
 
             } catch (error) {
@@ -402,19 +402,27 @@ class Signup extends React.Component {
                     </View>
 
                     <View style={styles.logoContainer}>
-                        {/* <Image source={require('../icons/logo.png')} style={styles.forImages} resizeMode='contain' /> */}
+
+                        <Text style={styles.graveyard}>GRAVEYARD</Text>
+                        <Text style={styles.application}>APPLICATION</Text>
                     </View>
+
+
+                    {/* <View style={styles.logoContainer}>
+                         <Image source={require('../icons/logo.png')} style={styles.forImages} resizeMode='contain' /> 
+                    </View> */}
                     <View style={{ flex: 1 }}></View>
                     <View style={styles.paraContainer}>
                         <Text style={styles.paraText}>
                             Enter your email and password below to register for an account.
                  </Text>
                     </View>
-
+                    {/* <View><Text> Email </Text></View> */}
                     <View style={{ flexDirection: 'row', marginVertical: 8 }}>
-                        {/* <Text style={styles.textsStyles}>First Name</Text> */}
+                        <Text style={styles.textsStyles}>First Name</Text>
                     </View>
                     <View style={styles.inputFields}>
+
                         <TextInput onChangeText={text => {
 
                             this.setState({ name: text })
@@ -425,7 +433,7 @@ class Signup extends React.Component {
                             style={[styles.inputTexts, !this.state.nameValidate ? styles.errorInput : null]} />
                     </View>
                     <View style={{ flexDirection: 'row', marginVertical: 8, marginTop: 5 }}>
-                        {/* <Text style={styles.textsStyles}>Last Name</Text> */}
+                        <Text style={styles.textsStyles}>Last Name</Text>
                     </View>
                     <View style={styles.inputFields}>
                         <TextInput onChangeText={text => {
@@ -438,7 +446,7 @@ class Signup extends React.Component {
                             style={[styles.inputTexts, !this.state.nameValidate ? styles.errorInput : null]} />
                     </View>
                     <View style={{ flexDirection: 'row', marginVertical: 8, marginTop: 5 }}>
-                        {/* <Text style={styles.textsStyles}>Email</Text> */}
+                        <Text style={styles.textsStyles}>Email</Text>
                     </View>
                     <View style={styles.inputFields}>
                         <TextInput
@@ -486,7 +494,7 @@ class Signup extends React.Component {
                         />
                     </View>
 
-                    <Text style={styles.genderTextStyle}>Gender</Text>
+                    {/* <Text style={styles.genderTextStyle}>Gender</Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <TouchableOpacity style={male ? styles.clickedMale : styles.maleTouchableOpacity} onPress={this.getGender.bind(this, 'male')}>
                             <Text style={maleClickedTextStyle ? styles.maleClickedTextStyle : styles.maleTextStyle}>
@@ -497,8 +505,10 @@ class Signup extends React.Component {
                             <Text style={femaleClickedTextStyle ? styles.femaleClickedTextStyle : styles.maleTextStyle}>
                                 Female</Text>
                         </TouchableOpacity>
-                    </View>
+                    </View> */}
+
                     <View style={{ flexDirection: 'row', marginVertical: 8, marginTop: 5 }}>
+                        <Text style={styles.textsStyles}>New Password</Text>
                     </View>
                     <View style={styles.inputFields}>
                         <TextInput onChangeText={text => this.newPasswrdInputValueHandle(text)}
@@ -515,7 +525,7 @@ class Signup extends React.Component {
                          </Text>
                     </View>}
                     <View style={{ flexDirection: 'row', marginVertical: 8, marginTop: 5 }}>
-                        {/* <Text style={styles.textsStyles}>Confirm New Password</Text> */}
+                        <Text style={styles.textsStyles}>Confirm New Password</Text>
                     </View>
                     <View style={styles.inputFields}>
                         <TextInput onChangeText={(text) => this.cnfrmPasswrdInputValueHandle(text)}
@@ -539,14 +549,14 @@ class Signup extends React.Component {
                        </Text>}
                     </View>
                     {this.state.errorMessageState ? <View style={styles.passMatchContainer}>
-                         <Text style={styles.passNotMatchStyle}>
-                        {this.state.errorMessage}
-                       </Text>}
+                        <Text style={styles.passNotMatchStyle}>
+                            {this.state.errorMessage}
+                        </Text>}
                     </View>
-                    :
-                    null
+                        :
+                        null
                     }
-                    
+
                     {/* {isLoading && <View style={[styles.spinerContainer, styles.horizontal]}>
                         <ActivityIndicator size='large' color="#FF6200" />
                     </View>} */}
@@ -568,6 +578,7 @@ class Signup extends React.Component {
                 </View>
             </ScrollView>
         )
+
     }
 }
 

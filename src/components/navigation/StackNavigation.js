@@ -15,6 +15,8 @@ import PackagesScreen1 from '../screens/Packages1';
 import HomeScreen2 from '../screens/HomeScreen2';
 import Cart from '../screens/Cart';
 import Profile from '../screens/ProfilScreen';
+import UserType from '../screens/UserType';
+import CompleteReg from '../screens/CompleteReg';
 // import Payment from '../screens/PaymentScreen';
 // import Setupscreen1 from '../screens/SetUpScreen1';
 // import Setupscreen from '../screens/SetUpScreen';
@@ -67,6 +69,25 @@ const MainNavigator = createStackNavigator({
       header: null,
     }
   },
+
+  CompleteReg: {
+    screen: CompleteReg,
+    navigationOptions: {
+      headerStyle: {
+        elevation: 0,
+      }
+    }
+  },
+
+  UserType: {
+    screen: UserType,
+    navigationOptions: {
+      headerStyle: {
+        elevation: 0,
+      }
+    }
+  },
+
   Homescreen: {
     screen: Homescreen
   },
