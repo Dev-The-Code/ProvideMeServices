@@ -11,7 +11,7 @@ import Toast, { DURATION } from 'react-native-easy-toast';
 import ImagePicker from 'react-native-image-picker';
 import AsyncStorage from '@react-native-community/async-storage';
 const CryptoJS = require('crypto-js');
-
+// Add tipsi strip from macbook 
 const { height } = Dimensions.get('window');
 
 
@@ -96,72 +96,7 @@ class Payment extends React.Component {
   pay = async () => {
     const { name, email, monthArr, paymentMonth, amount, currency, creditCardNo, cvc, expiry, typeCard,
       isLoading, serviceValidation, userId, serviceName, transactionId, receiptImg, receiptImgValidation } = this.state;
-    //validation of the form
-    // if (serviceValidation == "credit card") {
-    //   console.log("credit card console")
-    //   if (name == '') {
-    //     this.setState({
-    //       nameValidation: true,
-    //       isLoading: false,
-    //     })
-    //   }
-    //   else {
-    //     this.setState({
-    //       nameValidation: false,
-    //       isLoading: true,
-    //     })
-    //   }
-    //   if (email == '') {
-    //     this.setState({
-    //       emailValidation: true,
-    //       isLoading: false,
-    //     })
-    //   }
-    //   else {
-    //     this.setState({
-    //       emailValidation: false,
-    //       isLoading: true,
-    //     })
-    //   }
-    //   if (paymentMonth == '') {
-    //     this.setState({
-    //       paymentMonthValidation: true,
-    //       isLoading: false,
-    //     })
-    //   }
-    //   else {
-    //     this.setState({
-    //       paymentMonthValidation: false,
-    //       isLoading: true,
-    //     })
-    //   }
-    //   if (amount == '') {
-    //     this.setState({
-    //       amountValidation: true,
-    //       isLoading: false,
-    //     })
-    //   }
-    //   else {
-    //     this.setState({
-    //       amountValidation: false,
-    //       isLoading: true,
-    //     })
-    //   }
-    //   if (currency == '') {
-    //     this.setState({
-    //       currencyValidation: true,
-    //       isLoading: false,
-    //     })
-    //   }
-    //   else {
-    //     this.setState({
-    //       currencyValidation: false,
-    //       isLoading: true,
-    //     })
-    //   }
-    // }
-    //if (serviceValidation == "other") {
-    console.log('condition true')
+    
     //get current year
     const year = new Date().getFullYear();
     // //geting payment month & year
@@ -294,48 +229,7 @@ class Payment extends React.Component {
         })
       }
     }
-    // else {
-    // alert('Please insert all fields')
-    // }
-
-    //}
-
-
-
-    // if (serviceValidation == "credit card") {
-    //   //seprate month & year for create token request
-    //   let expMonth = Number(expiry.slice(0, 2));
-    //   let expYear = Number(expiry.slice(3, 5));
-    //   //object for create token
-    //   const params = {
-    //     // mandatory
-    //     number: creditCardNo,
-    //     expMonth: expMonth,
-    //     expYear: expYear,
-    //     cvc: cvc,
-    //     typeCard: typeCard,
-    //   }
-    //   if (params.number != '') {
-    //     this.setState({
-    //       isLoading: true
-    //     })
-    //   }
-    // const token = await stripe.createTokenWithCard(params)
-    //   // send object to database
-    //   let paymentObj = {
-    //     name: name,
-    //     email: email,
-    //     paymentMonth: paymentMonthYear,
-    //     amount: amount,
-    //     currency: currency,
-    //     token: token.tokenId,
-    //     userId: userId
-    //   }
-    //   res = await HttpUtils.post('payment', paymentObj);
-    // }
-    // else if(serviceValidation == "other"){
-    // other screen data send on api
-
+    
   }
 
   updateCurrency = (e) => {
