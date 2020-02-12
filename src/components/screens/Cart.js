@@ -348,7 +348,7 @@ class Cart extends React.Component {
                 </ScrollView>
 
                 <View style={styles.cartMainCon}>
-                    <TouchableOpacity style={styles.cartCont} onPress={() => this.props.navigation.navigate('Payment')}>
+                    <TouchableOpacity style={styles.cartCont} onPress={() => navigate('Payment')}>
                         <View style={{ flexDirection: 'row', justifyContent: 'center', }}>
                             <Text style={{ color: 'white', marginBottom: 10, marginTop: 10, fontSize: 18, fontWeight: 'bold' }}> Book these services </Text>
                         </View>

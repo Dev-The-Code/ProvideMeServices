@@ -69,12 +69,19 @@ const styles = StyleSheet.create({
     cardContainer: {
         //flex: 1,
         marginTop: 20,
+    },
+    cardContainerInput: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+        marginTop: 20,
 
     },
 
     blankContainer: {
         flex: 2,
-        marginBottom: 30
+        marginBottom: 40
     },
     btnContainer: {
         flex: 2,
@@ -85,9 +92,9 @@ const styles = StyleSheet.create({
         flex: 2,
         height: 40,
         justifyContent: 'center',
-        backgroundColor: '#FF6200',
+        backgroundColor: '#447BBE',
         alignItems: 'center',
-        borderRadius: 5,
+        borderRadius: 20,
         // opacity:0.2
     },
     caloriesBtnStyleDisabled: {
@@ -132,7 +139,7 @@ const styles = StyleSheet.create({
     dateWithCancelIcon: {
         flexDirection: 'row',
         justifyContent: 'center',
-       // marginHorizontal:8
+        // marginHorizontal:8
     },
     toggelBtnContainer: {
         flexDirection: 'row',
@@ -147,7 +154,7 @@ const styles = StyleSheet.create({
         borderColor: '#e5e5e5',
         justifyContent: 'center',
         flexDirection: 'row',
-        backgroundColor: '#FF6200',
+        backgroundColor: '#447BBE',
         alignItems: 'center',
         borderRadius: 5
 
@@ -161,7 +168,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         borderRadius: 5,
-        backgroundColor: '#FF6200',
+        backgroundColor: '#447BBE',
 
     },
     textStyleOne: {
@@ -219,7 +226,7 @@ const styles = StyleSheet.create({
         height: 150,
         borderRadius: 150 / 2
     },
-    validationInstruction:{
+    validationInstruction: {
         color: '#FF6200',
         fontFamily: 'MontserratLight',
     }

@@ -17,6 +17,8 @@ import Cart from '../screens/Cart';
 import Profile from '../screens/ProfilScreen';
 import UserType from '../screens/UserType';
 import CompleteReg from '../screens/CompleteReg';
+import Payment from '../screens/PaymentScreen';
+import BookingRec from '../screens/BookingRec';
 // import Payment from '../screens/PaymentScreen';
 // import Setupscreen1 from '../screens/SetUpScreen1';
 // import Setupscreen from '../screens/SetUpScreen';
@@ -29,7 +31,7 @@ import CompleteReg from '../screens/CompleteReg';
 // import Profile from '../screens/ProfilScreen';
 // import EditProfileScreen from '../screens/EditableProfileScreen';
 // import StepCountScreen from '../screens/StepCountScreen';
-// import Payment from '../screens/PaymentScreen';
+
 // import Invoices from '../screens/InvoicesScreen';
 
 // import ActivateSpinner from '../Loading Spinner/ActivateIndicator';
@@ -71,12 +73,7 @@ const MainNavigator = createStackNavigator({
   },
 
   CompleteReg: {
-    screen: CompleteReg,
-    navigationOptions: {
-      headerStyle: {
-        elevation: 0,
-      }
-    }
+    screen: CompleteReg
   },
 
   UserType: {
@@ -97,6 +94,18 @@ const MainNavigator = createStackNavigator({
       headerStyle: {
         elevation: 0,
       }
+    }
+  },
+
+  BookingRec: {
+    screen: BookingRec,
+    navigationOptions: {
+      headerStyle: {
+        elevation: 0,
+        headerMode: 'none',
+        mode: 'modal',
+      }
+
     }
   },
   // StepCountScreen: {
@@ -166,14 +175,14 @@ const MainNavigator = createStackNavigator({
   //     }
   //   }
   // },
-  // Payment: {
-  //   screen: Payment,
-  //   navigationOptions: {
-  //     headerStyle: {
-  //       elevation: 0,
-  //     }
-  //   }
-  // },
+  Payment: {
+    screen: Payment,
+    navigationOptions: {
+      headerStyle: {
+        elevation: 0,
+      }
+    }
+  },
   // Invoices: {
   //   screen: Invoices,
   //   navigationOptions: {

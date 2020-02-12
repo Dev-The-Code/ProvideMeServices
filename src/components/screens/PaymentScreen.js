@@ -17,9 +17,9 @@ const { height } = Dimensions.get('window');
 
 class Payment extends React.Component {
   static navigationOptions = (navigation) => {
-    stripe.setOptions({
-      publishableKey: navigation.navigation.state.params.stripeKey
-    });
+    // stripe.setOptions({
+    //   publishableKey: navigation.navigation.state.params.stripeKey
+    // });
     const { navigate } = navigation.navigation.navigate
     return {
       headerStyle: {
@@ -96,7 +96,7 @@ class Payment extends React.Component {
   pay = async () => {
     const { name, email, monthArr, paymentMonth, amount, currency, creditCardNo, cvc, expiry, typeCard,
       isLoading, serviceValidation, userId, serviceName, transactionId, receiptImg, receiptImgValidation } = this.state;
-    
+
     //get current year
     const year = new Date().getFullYear();
     // //geting payment month & year
@@ -229,7 +229,7 @@ class Payment extends React.Component {
         })
       }
     }
-    
+
   }
 
   updateCurrency = (e) => {
@@ -334,6 +334,7 @@ class Payment extends React.Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation;
     const {
       nameValidation,
       emailValidation,
@@ -368,7 +369,7 @@ class Payment extends React.Component {
               Payment
             </Text>
           </View>
-          {/* <View style={styles.toggelBtnContainer}>
+          <View style={styles.toggelBtnContainer}>
             <TouchableOpacity style={[creditScreen == true &&
               buttonActive == true
               ? styles.payScreenOneBtn : styles.unActiveBtnStyle]}
@@ -390,356 +391,357 @@ class Payment extends React.Component {
                   ?
                   styles.unActiveTextStyle : styles.textStyleOne]}>Others</Text>
             </TouchableOpacity>
-          </View> */}
-
-
-          {/* {
-          creditScreen ? <View>
-            <View style={styles.paraTextContainer}>
-              <Text style={styles.inputLabelsStyle}>Enter your credit/debit card details below to pay for your subscription.</Text>
-            </View>
-            <View style={styles.nameContainer}>
-              <Text style={styles.inputLabelsStyle}>Name</Text>
-              <TextInput
-                placeholder="Name"
-                style={styles.inputTextStyle}
-                placeholderColor="#4f4f4f"
-                onChangeText={(name) => this.setState({ name })}
-              />
-            </View>
-            <View>
-              {nameValidation ?
-                <View>
-                  <Text>
-                    Please fill your name
-                  </Text>
-                </View>
-                : null}
-            </View>
-            <View style={styles.emailContainer}>
-              <Text style={styles.inputLabelsStyle}>Email</Text>
-              <TextInput placeholder="email@gmail.com"
-                style={styles.inputTextStyle}
-                keyboardType="email-address"
-                placeholderColor="#4f4f4f"
-                onChangeText={(email) => this.setState({ email })}
-              />
-            </View>
-            <View>
-              {emailValidation ?
-                <View>
-                  <Text>
-                    Please fill your email
-                  </Text>
-                </View>
-                : null}
-            </View>
-            <View style={styles.paymentMonthContainer}>
-              <Text style={styles.inputLabelsStyle}>Payment For The Month Of</Text>
-              <TextInput placeholder="01"
-                style={styles.inputTextStyle}
-                keyboardType={"numeric"}
-                placeholderColor="#4f4f4f"
-                onChangeText={(paymentMonth) => this.setState({ paymentMonth })}
-              />
-            </View>
-            <View>
-              {paymentMonthValidation ?
-                <View>
-                  <Text>
-                    Please fill payment month no:
-                  </Text>
-                </View>
-                : null}
-            </View>
-
-            <View style={styles.amountContainer}>
-              <Text style={styles.inputLabelsStyle}>Amount</Text>
-              <TextInput placeholder="USD amount"
-                style={styles.inputTextStyle}
-                keyboardType={"numeric"}
-                placeholderColor="#4f4f4f"
-                onChangeText={(amount) => this.setState({ amount })}
-              />
-              <Picker
-                selectedValue={this.state.currency}
-                onValueChange={this.updateCurrency}
-              // style={styles.pickerStyle}
-              >
-                <Picker.Item label='Select an currency...' value='0' />
-                <Picker.Item label="USD" value="usd" />
-              </Picker>
-            </View>
-            <View>
-              {amountValidation ?
-                <View>
-                  <Text>
-                    Please fill amount
-                  </Text>
-                </View>
-                : null}
-            </View>
-            <View>
-              {currencyValidation ?
-                <View>
-                  <Text>
-                    Please fill currency
-                  </Text>
-                </View>
-                : null}
-            </View>
-            {/* <View style={styles.cardContainer}> */}
-          {/* <View style={{ marginTop: 15 }}></View>
-            <CreditCardInput
-              onChange={this.cardDetail}
-              allowScroll={true}
-
-            />
-            {/* </View> */}
-
-          {/* loader show */}
-          {/* {isLoading ? <OverlayLoader /> : null} */}
-          {/* payment succesfully show modal */}
-          {/* {dataSubmit ?
-              <Modal
-                isVisible={this.state.isVisibleModal}
-                animationIn='zoomIn'
-                //animationOut='zoomOutDown'
-                backdropOpacity={0.8}
-                backdropColor='white'
-                coverScreen={true}
-                animationInTiming={800}
-                animationOutTiming={500}
-              >
-                <View style={styles.cardContainer}>
-                  <View style={styles.dateWithCancelIcon}>
-                    <Text style={{ color: '#000000', fontSize: 18 }}>Data has been submitted successfully</Text>
-                    <TouchableOpacity onPress={this.backToPage} activeOpacity={0.6}>
-                      <Image source={require('../icons/cancel.png')} />
-                    </TouchableOpacity>
-                  </View>
-                  <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 20 }}>
-                    <Image source={require('../icons/green-check-mark.gif')} style={styles.forImages} resizeMode='contain' />
-                  </View>
-                </View>
-              </Modal>
-              :
-              null
-            } */}
-          {/* in case error of payment stripe the show toast */}
-          {/* <Toast ref="toastWithStyle"
-              style={{ backgroundColor: '#FF6200' }}
-              position={this.state.position}
-              positionValue={50}
-              fadeInDuration={750}
-              fadeOutDuration={1000}
-              opacity={0.8}
-              textStyle={{ color: 'white', fontFamily: 'MontserratLight', }}
-            />
-          </View>  */}
-
-          {/* :  */}
-
-          <View>
-            <View style={styles.paraTextContainer}>
-              <Text style={styles.inputLabelsStyle}>Enter your transaction details below to complete your payment.</Text>
-            </View>
-            <View style={styles.nameContainer}>
-              <Text style={styles.inputLabelsStyle}>Sevice Name</Text>
-              <Picker
-                selectedValue={this.state.serviceName}
-                onValueChange={this.updateServiceName}
-                style={{ backgroundColor: '#e5e5e5', height: 40, fontFamily: 'MontserratLight' }}
-              >
-                <Picker.Item label='Select a service...' color='gray' value='0' />
-                <Picker.Item label="Easy Piasa" value="Easypaisa" />
-                <Picker.Item label="Mobi Cash" value="Mobicash" />
-                <Picker.Item label="Ubl Omni" value="Ublomni" />
-                <Picker.Item label="Cheque" value="Cheque" />
-                <Picker.Item label="Other" value="Other" />
-              </Picker>
-            </View>
-            <View>
-              {serviceNameValidation ?
-                <View>
-                  <Text style={styles.validationInstruction}>
-                    Please select service name
-                  </Text>
-                </View>
-                : null}
-            </View>
-            <View style={styles.emailContainer}>
-              <Text style={styles.inputLabelsStyle}>Email</Text>
-              <TextInput placeholder="email@gmail.com"
-                style={styles.inputTextStyle}
-                keyboardType="email-address"
-                placeholderColor="#4f4f4f"
-                autoCapitalize="none"
-                value={email}
-                onChangeText={(email) => this.setState({ email })}
-              />
-            </View>
-            <View>
-              {emailValidation ?
-                <View>
-                  <Text style={styles.validationInstruction}>
-                    Please fill your email
-                  </Text>
-                </View>
-                : null}
-            </View>
-            <View style={styles.paymentMonthContainer}>
-              <Text style={styles.inputLabelsStyle}>Payment For The Month Of</Text>
-              <TextInput placeholder="e.g sep."
-                style={styles.inputTextStyle}
-                keyboardType={"numeric"}
-                placeholderColor="#4f4f4f"
-                value={paymentMonth}
-                onChangeText={(paymentMonth) => this.setState({ paymentMonth })}
-              />
-            </View>
-            <View>
-              {paymentMonthValidation ?
-                <View>
-                  <Text style={styles.validationInstruction}>
-                    Please fill payment month no:
-                  </Text>
-                </View>
-                : null}
-            </View>
-            <View style={styles.amountContainer}>
-              <Text style={styles.inputLabelsStyle}>Amount</Text>
-              <TextInput placeholder="e.g USD amount"
-                style={styles.inputTextStyle}
-                keyboardType={"numeric"}
-                placeholderColor="#4f4f4f"
-                value={amount}
-                onChangeText={(amount) => this.setState({ amount })}
-              />
-              <Picker
-                selectedValue={this.state.currency}
-                onValueChange={this.updateCurrency}
-                style={{ backgroundColor: '#e5e5e5', height: 40, fontFamily: 'MontserratLight', marginTop: 5 }}
-              >
-                <Picker.Item label='Select an currency...' color='gray' value='0' />
-                <Picker.Item label="PKR" value="pkr" />
-                <Picker.Item label="USD" value="usd" />
-              </Picker>
-            </View>
-            <View>
-              {amountValidation ?
-                <View>
-                  <Text style={styles.validationInstruction}>
-                    Please fill amount
-                  </Text>
-                </View>
-                : null}
-            </View>
-            <View>
-              {currencyValidation ?
-                <View>
-                  <Text style={styles.validationInstruction}>
-                    Please select currency
-                  </Text>
-                </View>
-                : null}
-            </View>
-            <View style={styles.amountContainer}>
-              <Text style={styles.inputLabelsStyle}>Transaction ID</Text>
-              <TextInput placeholder="e.g xxxx xxxx xxxx"
-                style={styles.inputTextStyle}
-                keyboardType={"numeric"}
-                placeholderColor="#4f4f4f"
-                value={transactionId}
-                onChangeText={(transactionId) => this.setState({ transactionId })}
-              />
-
-            </View>
-            <View>
-              {transactionIdValidation ?
-                <View>
-                  <Text style={styles.validationInstruction}>
-                    Please fill Transaction ID
-                  </Text>
-                </View>
-                : null}
-            </View>
-            <View style={styles.fileUploadContainer}>
-              <TouchableOpacity style={styles.fileRecipet}>
-                {receiptImg == '' ?
-                  <Text style={styles.textStyle}>Upload Receipt</Text>
-                  :
-                  <Image source={{ uri: `${receiptImg}` }} style={styles.reciptImg} />
-                }
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.imgFile} onPress={this.choosePhotoFunc}>
-                <Text style={styles.textStyle}>Upload Photo</Text>
-              </TouchableOpacity>
-            </View>
-            <View>
-              {receiptImgValidation ?
-                <View>
-                  <Text style={styles.validationInstruction}>
-                    Please upload image
-                  </Text>
-                </View>
-                : null}
-            </View>
-            {/* <View style={styles.cardContainer}>
-              <CreditCardInput
-                onChange={this.cardDetail}
-              />
-            </View> */}
-
-            {/* loader show */}
-            {isLoading ? <OverlayLoader /> : null}
-            {/* payment succesfully show modal */}
-            {dataSubmit ?
-              <Modal
-                isVisible={this.state.isVisibleModal}
-                animationIn='zoomIn'
-                animationOut='zoomOutDown'
-                backdropOpacity={0.8}
-                backdropColor='white'
-                coverScreen={true}
-                animationInTiming={300}
-                animationOutTiming={100}
-                onBackdropPress={() => this.setState({ isVisibleModal: false })}
-              >
-                <View style={styles.modalCardContainer}>
-                  <View style={styles.dateWithCancelIcon}>
-                    <Text style={{ color: '#000000', fontSize: 18 }}>Data has been submitted successfully</Text>
-                    {/* <TouchableOpacity onPress={this.backToPage} activeOpacity={0.6}>
-                        <Image source={require('../icons/cancel.png')} />
-                      </TouchableOpacity> */}
-                  </View>
-                  <View style={{ flexDirection: 'row', justifyContent: 'center', }}>
-                    <Image source={require('../icons/green-check-mark.gif')} style={styles.forImages}
-                      resizeMode='contain' />
-                  </View>
-                </View>
-              </Modal>
-              :
-              null
-            }
-            {/* in case error of payment stripe the show toast */}
-            <Toast ref="toastWithStyle"
-              style={{ backgroundColor: '#FF6200' }}
-              position={this.state.position}
-              positionValue={50}
-              fadeInDuration={750}
-              fadeOutDuration={1000}
-              opacity={0.8}
-              textStyle={{ color: 'white', fontFamily: 'MontserratLight', }}
-            />
           </View>
-          {/* } */}
-          <View style={styles.btnContainer}>
+          {
+            creditScreen ? <View>
+              <View style={styles.paraTextContainer}>
+                <Text style={styles.inputLabelsStyle}>Enter your credit/debit card details below to pay for your subscription.</Text>
+              </View>
+              <View style={styles.nameContainer}>
+                <Text style={styles.inputLabelsStyle}>Name</Text>
+                <TextInput
+                  placeholder="Name"
+                  style={styles.inputTextStyle}
+                  placeholderColor="#4f4f4f"
+                  onChangeText={(name) => this.setState({ name })}
+                />
+              </View>
+              <View>
+                {nameValidation ?
+                  <View>
+                    <Text>
+                      Please fill your name
+                  </Text>
+                  </View>
+                  : null}
+              </View>
+              <View style={styles.emailContainer}>
+                <Text style={styles.inputLabelsStyle}>Email</Text>
+                <TextInput placeholder="email@gmail.com"
+                  style={styles.inputTextStyle}
+                  keyboardType="email-address"
+                  placeholderColor="#4f4f4f"
+                  onChangeText={(email) => this.setState({ email })}
+                />
+              </View>
+              <View>
+                {emailValidation ?
+                  <View>
+                    <Text>
+                      Please fill your email
+                  </Text>
+                  </View>
+                  : null}
+              </View>
+              <View style={styles.paymentMonthContainer}>
+                <Text style={styles.inputLabelsStyle}>Payment For The Month Of</Text>
+                <TextInput placeholder="01"
+                  style={styles.inputTextStyle}
+                  keyboardType={"numeric"}
+                  placeholderColor="#4f4f4f"
+                  onChangeText={(paymentMonth) => this.setState({ paymentMonth })}
+                />
+              </View>
+              <View>
+                {paymentMonthValidation ?
+                  <View>
+                    <Text>
+                      Please fill payment month no:
+                  </Text>
+                  </View>
+                  : null}
+              </View>
+
+              <View style={styles.amountContainer}>
+                <Text style={styles.inputLabelsStyle}>Amount</Text>
+                <TextInput placeholder="USD amount"
+                  style={styles.inputTextStyle}
+                  keyboardType={"numeric"}
+                  placeholderColor="#4f4f4f"
+                  onChangeText={(amount) => this.setState({ amount })}
+                />
+                <Picker
+                  selectedValue={this.state.currency}
+                  onValueChange={this.updateCurrency}
+                // style={styles.pickerStyle}
+                >
+                  <Picker.Item label='Select an currency...' value='0' />
+                  <Picker.Item label="USD" value="usd" />
+                </Picker>
+              </View>
+              <View>
+                {amountValidation ?
+                  <View>
+                    <Text>
+                      Please fill amount
+                  </Text>
+                  </View>
+                  : null}
+              </View>
+              <View>
+                {currencyValidation ?
+                  <View>
+                    <Text>
+                      Please fill currency
+                  </Text>
+                  </View>
+                  : null}
+              </View>
+
+              <View style={styles.cardContainerInput}>
+                {/* <View style={{ marginTop: 15 }}></View> */}
+                <CreditCardInput
+                  onChange={this.cardDetail}
+                  allowScroll={true}
+
+                />
+              </View>
+
+
+              {/* loader show */}
+              {isLoading ? <OverlayLoader /> : null}
+              {/* payment succesfully show modal */}
+              {dataSubmit ?
+                <Modal
+                  isVisible={this.state.isVisibleModal}
+                  animationIn='zoomIn'
+                  //animationOut='zoomOutDown'
+                  backdropOpacity={0.8}
+                  backdropColor='white'
+                  coverScreen={true}
+                  animationInTiming={800}
+                  animationOutTiming={500}
+                >
+                  <View style={styles.cardContainer}>
+                    <View style={styles.dateWithCancelIcon}>
+                      <Text style={{ color: '#000000', fontSize: 18 }}>Data has been submitted successfully</Text>
+                      <TouchableOpacity onPress={this.backToPage} activeOpacity={0.6}>
+                        <Image source={require('../icons/cancel.png')} />
+                      </TouchableOpacity>
+                    </View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 20 }}>
+                      <Image source={require('../icons/green-check-mark.gif')} style={styles.forImages} resizeMode='contain' />
+                    </View>
+                  </View>
+                </Modal>
+                :
+                null
+              }
+              {/* in case error of payment stripe the show toast */}
+              <Toast ref="toastWithStyle"
+                style={{ backgroundColor: '#FF6200' }}
+                position={this.state.position}
+                positionValue={50}
+                fadeInDuration={750}
+                fadeOutDuration={1000}
+                opacity={0.8}
+                textStyle={{ color: 'white', fontFamily: 'MontserratLight', }}
+              />
+            </View>
+
+              :
+
+              <View>
+                <View style={styles.paraTextContainer}>
+                  <Text style={styles.inputLabelsStyle}>Enter your transaction details below to complete your payment.</Text>
+                </View>
+                <View style={styles.nameContainer}>
+                  <Text style={styles.inputLabelsStyle}>Sevice Name</Text>
+                  <Picker
+                    selectedValue={this.state.serviceName}
+                    onValueChange={this.updateServiceName}
+                    style={{ backgroundColor: '#e5e5e5', height: 40, fontFamily: 'MontserratLight' }}
+                  >
+                    <Picker.Item label='Select a service...' color='gray' value='0' />
+                    <Picker.Item label="Easy Piasa" value="Easypaisa" />
+                    <Picker.Item label="Mobi Cash" value="Mobicash" />
+                    <Picker.Item label="Ubl Omni" value="Ublomni" />
+                    <Picker.Item label="Cheque" value="Cheque" />
+                    <Picker.Item label="Other" value="Other" />
+                  </Picker>
+                </View>
+                <View>
+                  {serviceNameValidation ?
+                    <View>
+                      <Text style={styles.validationInstruction}>
+                        Please select service name
+                  </Text>
+                    </View>
+                    : null}
+                </View>
+                <View style={styles.emailContainer}>
+                  <Text style={styles.inputLabelsStyle}>Email</Text>
+                  <TextInput placeholder="email@gmail.com"
+                    style={styles.inputTextStyle}
+                    keyboardType="email-address"
+                    placeholderColor="#4f4f4f"
+                    autoCapitalize="none"
+                    value={email}
+                    onChangeText={(email) => this.setState({ email })}
+                  />
+                </View>
+                <View>
+                  {emailValidation ?
+                    <View>
+                      <Text style={styles.validationInstruction}>
+                        Please fill your email
+                  </Text>
+                    </View>
+                    : null}
+                </View>
+                <View style={styles.paymentMonthContainer}>
+                  <Text style={styles.inputLabelsStyle}>Payment For The Month Of</Text>
+                  <TextInput placeholder="e.g sep."
+                    style={styles.inputTextStyle}
+                    keyboardType={"numeric"}
+                    placeholderColor="#4f4f4f"
+                    value={paymentMonth}
+                    onChangeText={(paymentMonth) => this.setState({ paymentMonth })}
+                  />
+                </View>
+                <View>
+                  {paymentMonthValidation ?
+                    <View>
+                      <Text style={styles.validationInstruction}>
+                        Please fill payment month no:
+                  </Text>
+                    </View>
+                    : null}
+                </View>
+                <View style={styles.amountContainer}>
+                  <Text style={styles.inputLabelsStyle}>Amount</Text>
+                  <TextInput placeholder="e.g USD amount"
+                    style={styles.inputTextStyle}
+                    keyboardType={"numeric"}
+                    placeholderColor="#4f4f4f"
+                    value={amount}
+                    onChangeText={(amount) => this.setState({ amount })}
+                  />
+                  <Picker
+                    selectedValue={this.state.currency}
+                    onValueChange={this.updateCurrency}
+                    style={{ backgroundColor: '#e5e5e5', height: 40, fontFamily: 'MontserratLight', marginTop: 5 }}
+                  >
+                    <Picker.Item label='Select an currency...' color='gray' value='0' />
+                    <Picker.Item label="PKR" value="pkr" />
+                    <Picker.Item label="USD" value="usd" />
+                  </Picker>
+                </View>
+                <View>
+                  {amountValidation ?
+                    <View>
+                      <Text style={styles.validationInstruction}>
+                        Please fill amount
+                  </Text>
+                    </View>
+                    : null}
+                </View>
+                <View>
+                  {currencyValidation ?
+                    <View>
+                      <Text style={styles.validationInstruction}>
+                        Please select currency
+                  </Text>
+                    </View>
+                    : null}
+                </View>
+                <View style={styles.amountContainer}>
+                  <Text style={styles.inputLabelsStyle}>Transaction ID</Text>
+                  <TextInput placeholder="e.g xxxx xxxx xxxx"
+                    style={styles.inputTextStyle}
+                    keyboardType={"numeric"}
+                    placeholderColor="#4f4f4f"
+                    value={transactionId}
+                    onChangeText={(transactionId) => this.setState({ transactionId })}
+                  />
+
+                </View>
+                <View>
+                  {transactionIdValidation ?
+                    <View>
+                      <Text style={styles.validationInstruction}>
+                        Please fill Transaction ID
+                  </Text>
+                    </View>
+                    : null}
+                </View>
+                <View style={styles.fileUploadContainer}>
+                  <TouchableOpacity style={styles.fileRecipet}>
+                    {receiptImg == '' ?
+                      <Text style={styles.textStyle}>Upload Receipt</Text>
+                      :
+                      <Image source={{ uri: `${receiptImg}` }} style={styles.reciptImg} />
+                    }
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.imgFile} onPress={this.choosePhotoFunc}>
+                    <Text style={styles.textStyle}>Upload Photo</Text>
+                  </TouchableOpacity>
+                </View>
+                <View>
+                  {receiptImgValidation ?
+                    <View>
+                      <Text style={styles.validationInstruction}>
+                        Please upload image
+                  </Text>
+                    </View>
+                    : null}
+                </View>
+                {/* <View style={styles.cardContainer}>
+                  <CreditCardInput
+                    onChange={this.cardDetail}
+                  />
+                </View> */}
+
+                {/* loader show */}
+                {isLoading ? <OverlayLoader /> : null}
+                {/* payment succesfully show modal */}
+                {dataSubmit ?
+                  <Modal
+                    isVisible={this.state.isVisibleModal}
+                    animationIn='zoomIn'
+                    animationOut='zoomOutDown'
+                    backdropOpacity={0.8}
+                    backdropColor='white'
+                    coverScreen={true}
+                    animationInTiming={300}
+                    animationOutTiming={100}
+                    onBackdropPress={() => this.setState({ isVisibleModal: false })}
+                  >
+                    <View style={styles.modalCardContainer}>
+                      <View style={styles.dateWithCancelIcon}>
+                        <Text style={{ color: '#000000', fontSize: 18 }}>Data has been submitted successfully</Text>
+                        <TouchableOpacity onPress={this.backToPage} activeOpacity={0.6}>
+                          <Image source={require('../icons/cancel.png')} />
+                        </TouchableOpacity>
+                      </View>
+                      <View style={{ flexDirection: 'row', justifyContent: 'center', }}>
+                        <Image source={require('../icons/green-check-mark.gif')} style={styles.forImages}
+                          resizeMode='contain' />
+                      </View>
+                    </View>
+                  </Modal>
+                  :
+                  null
+                }
+                {/* in case error of payment stripe the show toast */}
+                <Toast ref="toastWithStyle"
+                  style={{ backgroundColor: '#FF6200' }}
+                  position={this.state.position}
+                  positionValue={50}
+                  fadeInDuration={750}
+                  fadeOutDuration={1000}
+                  opacity={0.8}
+                  textStyle={{ color: 'white', fontFamily: 'MontserratLight', }}
+                />
+              </View>
+          }
+          <View style={styles.btnContainer} >
             <CaloriesSetupBtn title='Confirm And Pay'
-              btnDisable={btnDisable}
-              onPress={this.pay}
+              // btnDisable={btnDisable}
+              onPress={() => navigate('BookingRec')}
               caloriesBtnStyle={styles.caloriesBtnStyle}
-              caloriesBtnStyleDisabled={styles.caloriesBtnStyleDisabled} />
+            // caloriesBtnStyleDisabled={styles.caloriesBtnStyleDisabled} 
+            />
           </View>
           <View style={styles.blankContainer}>
           </View>

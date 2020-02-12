@@ -19,6 +19,7 @@
     "react": "16.9.0",
     "react-native": "0.61.5",
     "react-native-charts": "^3.0.0",
+    "react-native-credit-card-input": "^0.4.1",
     "react-native-date-picker": "^2.7.5",
     "react-native-datepicker": "^1.7.2",
     "react-native-easy-toast": "^1.2.0",
