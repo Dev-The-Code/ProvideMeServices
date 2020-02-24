@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     //marginLeft: 16, 
     color: 'white',
     justifyContent: 'center',
-    backgroundColor: '#FF6200',
+    backgroundColor: '#447BBE',
     marginTop: 5,
     borderRadius: 3
   },
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
     //marginLeft: 16, 
     color: 'white',
     justifyContent: 'center',
-    backgroundColor: '#FF6200',
+    backgroundColor: '#447BBE',
     marginTop: 5,
     borderRadius: 3
   },

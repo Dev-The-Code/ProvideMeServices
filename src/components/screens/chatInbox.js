@@ -89,37 +89,37 @@ class ChatInbox extends React.Component {
 
     // }
 
-    componentWillUnmount() {
-        // Remove the event listener
-        this.focusListener.remove();
-    }
-    checkTrainy = () => {
-        const { navigation } = this.props;
-        this.focusListener = navigation.addListener('didFocus', () => {
-            AsyncStorage.getItem('currentUser').then((value) => {
-                let userData = JSON.parse(value)
-                let userName = userData.name + ' ' + userData.lastName;
-                if (userData.assignTrainner != undefined) {
-                    this.setState({
-                        forTrainnerModal: false
-                    })
-                }
-                else if (userData.assignTrainny != undefined) {
-                    this.setState({
-                        forTrainnerModal: false
-                    })
-                }
-                else {
-                    this.setState({
-                        forTrainnerModal: true,
-                        currentName: userName,
-                        userEmail: userData.email,
-                        userNumber: userData.mobileNo
-                    })
-                }
-            })
-        });
-    }
+    // componentWillUnmount() {
+    //     // Remove the event listener
+    //     this.focusListener.remove();
+    // }
+    // checkTrainy = () => {
+    //     const { navigation } = this.props;
+    //     this.focusListener = navigation.addListener('didFocus', () => {
+    //         AsyncStorage.getItem('currentUser').then((value) => {
+    //             let userData = JSON.parse(value)
+    //             let userName = userData.name + ' ' + userData.lastName;
+    //             if (userData.assignTrainner != undefined) {
+    //                 this.setState({
+    //                     forTrainnerModal: false
+    //                 })
+    //             }
+    //             else if (userData.assignTrainny != undefined) {
+    //                 this.setState({
+    //                     forTrainnerModal: false
+    //                 })
+    //             }
+    //             else {
+    //                 this.setState({
+    //                     forTrainnerModal: true,
+    //                     currentName: userName,
+    //                     userEmail: userData.email,
+    //                     userNumber: userData.mobileNo
+    //                 })
+    //             }
+    //         })
+    //     });
+    // }
 
 
     removeModal = () => {

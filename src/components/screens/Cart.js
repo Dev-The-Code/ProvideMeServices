@@ -69,9 +69,9 @@ class Cart extends React.Component {
                             <Text style={styles.headingText}>Cart</Text>
                         </View>
 
-                        <TouchableOpacity style={styles.monthlyPlan}>
-                            <View style={styles.plan}>
-                                <Text style={styles.monthlyText}>Quran Khuwani</Text>
+                        <TouchableOpacity style={styles.cartMainCont}>
+                            <View style={styles.cartCont}>
+                                <Text style={styles.cartText}>Quran Khuwani</Text>
                                 <View style={{ flexDirection: 'row', marginLeft: 180, }}>
                                     <TouchableOpacity activeOpacity={0.6}>
                                         <Image source={require('../icons/cancel.png')} />
@@ -86,7 +86,7 @@ class Cart extends React.Component {
                                 Price
                             </Text>
 
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 30 }}>
+                            <View style={styles.timeMainCont}>
                                 <View>
                                     <Text style={{ color: '#E5E5E5', }}>
                                         {this.state.time}
@@ -127,7 +127,7 @@ class Cart extends React.Component {
                                 </View>
                             </View>
 
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
+                            <View style={styles.dateMainCont}>
                                 <View>
                                     <Text style={{ color: '#E5E5E5', }}>
                                         {this.state.date}
@@ -185,9 +185,9 @@ class Cart extends React.Component {
 
                         {/* 2ndCard work */}
 
-                        <TouchableOpacity style={styles.monthlyPlan}>
-                            <View style={styles.plan}>
-                                <Text style={styles.monthlyText}>Biryani Charity</Text>
+                        <TouchableOpacity style={styles.cartMainCont}>
+                            <View style={styles.cartCont}>
+                                <Text style={styles.cartText}>Biryani Charity</Text>
                                 <View style={{ flexDirection: 'row', marginLeft: 180, }}>
                                     <TouchableOpacity activeOpacity={0.6}>
                                         <Image source={require('../icons/cancel.png')} />
@@ -202,7 +202,7 @@ class Cart extends React.Component {
                                 Price per person
                             </Text>
 
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 30 }}>
+                            <View style={styles.quantityMainCont}>
                                 <View>
                                     <Text style={{ color: '#E5E5E5', }}>
                                         50
@@ -215,21 +215,21 @@ class Cart extends React.Component {
 
                                 <View style={{ flexDirection: 'row' }}>
                                     <TouchableOpacity style={{ margin: 1, }}>
-                                        <Text style={{ color: 'black', borderColor: '#447BBE', textAlign: 'center', borderRadius: 15, borderWidth: 1, padding: 5, width: 40, height: 30 }}>
+                                        <Text style={styles.plusText}>
                                             +
                                     </Text>
                                     </TouchableOpacity >
                                     <View style={{ margin: 10 }}>
                                     </View>
                                     <TouchableOpacity>
-                                        <Text style={{ color: 'black', borderColor: '#447BBE', borderRadius: 15, borderWidth: 1, textAlign: 'center', padding: 5, width: 40, height: 30 }}>
+                                        <Text style={styles.minusText}>
                                             -
                                                 </Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
 
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
+                            <View style={styles.dateMainCont}>
                                 <View>
                                     <Text style={{ color: '#E5E5E5', }}>
                                         {this.state.date}
@@ -287,10 +287,10 @@ class Cart extends React.Component {
 
                         {/* 3rdCard Work */}
 
-                        <TouchableOpacity style={styles.monthlyPlan}>
-                            <View style={styles.plan}>
-                                <Text style={styles.monthlyText}>Grave Maintinance</Text>
-                                <View style={{ flexDirection: 'row', marginLeft: 60, }}>
+                        <TouchableOpacity style={styles.cartMainCont}>
+                            <View style={styles.cartCont}>
+                                <Text style={styles.cartText}>Grave Maintinance</Text>
+                                <View style={{ flexDirection: 'row', marginLeft: 150, }}>
                                     <TouchableOpacity activeOpacity={0.6}>
                                         <Image source={require('../icons/cancel.png')} />
                                     </TouchableOpacity>
@@ -304,7 +304,7 @@ class Cart extends React.Component {
                                 Price per month
                             </Text>
 
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
+                            <View style={styles.bahriaMainCont}>
                                 <View>
                                     <Text style={{ color: '#E5E5E5', }}>
                                         Bahria Town Graveyard
@@ -315,15 +315,15 @@ class Cart extends React.Component {
                                 </View>
 
                                 <View >
-                                    <TouchableOpacity style={{ borderColor: '#447BBE', borderWidth: 1, borderRadius: 50, width: 80, }}>
-                                        <Text style={{ textAlign: 'center', color: '#E5E5E5', padding: 5, }}>
+                                    <TouchableOpacity style={styles.changeCont}>
+                                        <Text style={styles.changeText}>
                                             Change
                                             </Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
 
-                            <View style={{ justifyContent: 'space-between', marginTop: 20 }}>
+                            <View style={styles.graveMainCont}>
                                 <Text style={{ color: '#E5E5E5', }}>
                                     Grave Number
                                     </Text>
@@ -347,14 +347,14 @@ class Cart extends React.Component {
                     </View>
                 </ScrollView>
 
-                <View style={styles.cartMainCon}>
-                    <TouchableOpacity style={styles.cartCont} onPress={() => navigate('Payment')}>
+                <View style={styles.bookBtnMainCon}>
+                    <TouchableOpacity style={styles.bookBtnCont} onPress={() => navigate('Payment')}>
                         <View style={{ flexDirection: 'row', justifyContent: 'center', }}>
-                            <Text style={{ color: 'white', marginBottom: 10, marginTop: 10, fontSize: 18, fontWeight: 'bold' }}> Book these services </Text>
+                            <Text style={styles.bookText}> Book these services </Text>
                         </View>
                         <View style={{ paddingTop: 5 }}>
-                            <View style={styles.counterCont2}>
-                                <Text style={{ color: '#447BBE', textAlign: 'center', fontWeight: 'bold' }}> Rs. 36,000 </Text>
+                            <View style={styles.totalCont}>
+                                <Text style={styles.totalText}> Rs. 36,000 </Text>
                             </View>
                         </View>
 

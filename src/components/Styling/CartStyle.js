@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
 
     },
 
-    monthlyPlan: {
+    cartMainCont: {
         backgroundColor: 'white',
         marginTop: 10,
         padding: 9,
@@ -72,13 +72,13 @@ const styles = StyleSheet.create({
 
     },
 
-    plan: {
+    cartCont: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         borderColor: 'black',
     },
 
-    monthlyText: {
+    cartText: {
         color: '#555555',
         fontFamily: "MontserratExtraBold",
     },
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
 
     },
 
-    cartMainCon: {
+    bookBtnMainCon: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
         paddingBottom: 10
     },
 
-    cartCont: {
+    bookBtnCont: {
         flexDirection: 'row',
         justifyContent: 'center',
         borderRadius: 30,
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
 
     },
 
-    counterCont2: {
+    totalCont: {
         // justifyContent: 'flex-end',
         borderRadius: 50,
         backgroundColor: 'white',
@@ -130,6 +130,84 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         height: 30,
         width: 130
+    },
+
+    timeMainCont: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 30
+    },
+
+    dateMainCont: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 20
+    },
+
+    quantityMainCont: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 30
+    },
+
+    plusText: {
+        color: 'black',
+        borderColor: '#447BBE',
+        textAlign: 'center',
+        borderRadius: 15,
+        borderWidth: 1,
+        padding: 5,
+        width: 40,
+        height: 30
+    },
+
+    minusText: {
+        color: 'black',
+        borderColor: '#447BBE',
+        borderRadius: 15,
+        borderWidth: 1,
+        textAlign: 'center',
+        padding: 5,
+        width: 40,
+        height: 30
+    },
+
+    bahriaMainCont: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 20
+    },
+
+    changeCont: {
+        borderColor: '#447BBE',
+        borderWidth: 1,
+        borderRadius: 50,
+        width: 80,
+    },
+
+    changeText: {
+        textAlign: 'center',
+        color: '#E5E5E5',
+        padding: 5
+    },
+
+    graveMainCont: {
+        justifyContent: 'space-between',
+        marginTop: 20
+    },
+
+    bookText: {
+        color: 'white',
+        marginBottom: 10,
+        marginTop: 10,
+        fontSize: 18,
+        fontWeight: 'bold'
+    },
+
+    totalText: {
+        color: '#447BBE',
+        textAlign: 'center',
+        fontWeight: 'bold'
     },
 
 

@@ -133,6 +133,7 @@ class Login extends React.Component {
   loginFunc = async () => {
     const { navigate } = this.props.navigation;
     const { email, password, emailValidate, passwrdValidate, deviceToken } = this.state;
+    // let userObj= {}
     if (email == '' || password == '') {
       Alert.alert('Please Fill All Fields')
       if (emailValidate !== true || passwrdValidate !== true) {
@@ -143,25 +144,49 @@ class Login extends React.Component {
       this.setState({
         isLoading: true
       })
+      // userObj.email = email;
+      // userObj.password = password
       const userObj = {
         email: email,
         password: password,
         //deviceToken:deviceToken
         // type:'trainny'
       }
-      // try {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password)
-        .then(() =>
-          AsyncStorage.setItem('currentUser', JSON.stringify(userObj)),
-        this.setState({ isLoading: false }, () => navigate('Usertype'))
-        )
-        .catch(error => this.setState({
-          errorMessage: error.message,
-          emailAndPasswrd: true,
-          isLoading: false
-        }))
+      console.log('Object data>>>', userObj)
+      try {
+        let sendData = await HttpUtilsFile.post('signin', userObj);
+        console.log('DataSend >>>', sendData)
+        if (sendData.code == 200) {
+          this.setState({
+            isLoading: false
+          }, () => {
+            navigate('BottomTabe')
+          })
+
+        }
+      }
+
+      catch (err) {
+        console.log(err)
+
+      }
+
+
+
+
+      // firebase
+      //   .auth()
+      //   .signInWithEmailAndPassword(email, password)
+      //   .then(() =>
+      //     AsyncStorage.setItem('currentUser', JSON.stringify(userObj)),
+      //   this.setState({ isLoading: false }, () => navigate('Usertype'))
+      //   )
+      //   .catch(error => this.setState({
+      //     errorMessage: error.message,
+      //     emailAndPasswrd: true,
+      //     isLoading: false
+      //})
+      //)
 
       // }
       // catch (error) {
@@ -216,8 +241,6 @@ class Login extends React.Component {
           psswrdInstruction: false
         })
       }
-
-
     })
   }
 
@@ -242,12 +265,15 @@ class Login extends React.Component {
         <View style={{ flex: 1 }}></View>
         <View style={styles.paraContainer}>
           <Text style={styles.paraText}>
-            Enter your GetFitAthletic email and password below to login
+            Enter your Provide Me Service email and password below to login
                  </Text>
         </View>
         <View style={{ flex: 0.2 }}></View>
         <View style={{ flexDirection: 'row', marginVertical: 8 }}>
           {/* <Text style={styles.textsStyles}>Email</Text> */}
+        </View>
+        <View style={{ flexDirection: 'row', marginVertical: 8, marginTop: 5 }}>
+          <Text style={styles.textsStyles}>Email</Text>
         </View>
         <View style={styles.inputFields}>
           <TextInput
@@ -267,6 +293,9 @@ class Login extends React.Component {
         <View style={{ flex: 0.5 }}></View>
         <View style={{ flexDirection: 'row', marginTop: 15, marginBottom: 10 }}>
           {/* <Text style={styles.textsStyles}>Password</Text> */}
+
+        </View><View style={{ flexDirection: 'row', marginVertical: 8, marginTop: 5 }}>
+          <Text style={styles.textsStyles}>Password</Text>
         </View>
         <View style={styles.inputFields}>
           <TextInput
@@ -301,13 +330,13 @@ class Login extends React.Component {
         <View style={{ flex: 1 }}></View>
         <View style={{ flexDirection: 'row' }}>
           <View style={{ flex: 1 }}></View>
-          <TouchableOpacity style={styles.loginButtonContainer} onPress={() => navigate('UserType')}>
+          <TouchableOpacity style={styles.loginButtonContainer} onPress={this.loginFunc}>
             <Text style={styles.loginButton}>Log In</Text>
           </TouchableOpacity>
           <View style={{ flex: 1 }}></View>
         </View>
         <View style={{ flex: 2, flexDirection: 'row', justifyContent: 'flex-start', marginTop: 35, marginBottom: 12 }}>
-          <TouchableOpacity style={styles.resetPassContainer} onPress={this.loginFunc} >
+          <TouchableOpacity style={styles.resetPassContainer} onPress={() => { navigate('ResetpasswordScreen') }} >
             <Text style={styles.resetPasswrdTextStyle}>Forgot password ? </Text>
           </TouchableOpacity>
           <View style={{ flex: 1 }}></View>

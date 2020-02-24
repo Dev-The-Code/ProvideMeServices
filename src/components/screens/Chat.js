@@ -193,10 +193,10 @@ class Chatscreen extends React.Component {
     this.getWeekReportData()
   }
 
-  componentWillUnmount() {
-    //this.notificationListener();
-    this.notificationOpenedListener();
-  }
+  // componentWillUnmount() {
+  //   //this.notificationListener();
+  //   this.notificationOpenedListener();
+  // }
 
 
   uplaodDataOnFirebase = (userMessage, type) => {
@@ -653,11 +653,11 @@ class Chatscreen extends React.Component {
     /*
 * If your app is in background, you can listen for when a notification is clicked / tapped / opened as follows:
 * */
-    this.notificationOpenedListener = firebasePushNotification.notifications().onNotificationOpened((notificationOpen) => {
-      const { title, body } = notificationOpen.notification;
-      // this.showAlert(title, body);
-      console.log('title >>', title, 'body >>', body)
-    });
+    // this.notificationOpenedListener = firebasePushNotification.notifications().onNotificationOpened((notificationOpen) => {
+    //   const { title, body } = notificationOpen.notification;
+    //   // this.showAlert(title, body);
+    //   console.log('title >>', title, 'body >>', body)
+    // });
 
     /*
       * If your app is closed, you can check if it was opened by a notification being clicked / tapped / opened as follows:

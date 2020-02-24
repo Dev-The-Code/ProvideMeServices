@@ -241,7 +241,7 @@ class Signup extends React.Component {
                 gender: gender,
                 mobileNo: mobileNo,
                 deviceToken: deviceToken,
-                type: 'trainee'
+
             }
 
 
@@ -255,7 +255,7 @@ class Signup extends React.Component {
                     this.setState({ isLoading: false }),
                     db.ref(`users/`).push(userObj),
                     AsyncStorage.setItem('currentUser', JSON.stringify(userObj)),
-                    navigate('BottomTabe'),
+                    navigate('UserType', { userObj: userObj }),
                 )
                     .catch(error => this.setState({ errorMessage: error.message }),
                     this.setState({ isLoading: false, errorMessageState: true }),
@@ -398,7 +398,7 @@ class Signup extends React.Component {
                     <View style={styles.signUpTextContainer}>
                         <Text style={styles.signUpText}>
                             Register
-                </Text>
+                        </Text>
                     </View>
 
                     <View style={styles.logoContainer}>
@@ -471,7 +471,7 @@ class Signup extends React.Component {
                     </View>
                         : null}
                     <View style={{ flexDirection: 'row', marginVertical: 8, marginTop: 5 }}>
-                        {/* <Text style={styles.textsStyles}>Mobile</Text> */}
+                        <Text style={styles.textsStyles}>Mobile</Text>
                     </View>
                     <View style={{ flexDirection: 'row' }}>
 
@@ -489,12 +489,12 @@ class Signup extends React.Component {
                             value={this.state.mobileNo}
                             //pickerBackgroundColor={'red'}
                             // getPickerData={(res)=>console.log(res)}
-                            style={{ flex: 1, height: 40, backgroundColor: 'white', borderRadius: 3 }}
+                            style={{ flex: 1, height: 40, backgroundColor: '#E5E5E5', borderRadius: 3 }}
 
                         />
                     </View>
 
-                    {/* <Text style={styles.genderTextStyle}>Gender</Text>
+                    <Text style={styles.genderTextStyle}>Gender</Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <TouchableOpacity style={male ? styles.clickedMale : styles.maleTouchableOpacity} onPress={this.getGender.bind(this, 'male')}>
                             <Text style={maleClickedTextStyle ? styles.maleClickedTextStyle : styles.maleTextStyle}>
@@ -505,7 +505,7 @@ class Signup extends React.Component {
                             <Text style={femaleClickedTextStyle ? styles.femaleClickedTextStyle : styles.maleTextStyle}>
                                 Female</Text>
                         </TouchableOpacity>
-                    </View> */}
+                    </View>
 
                     <View style={{ flexDirection: 'row', marginVertical: 8, marginTop: 5 }}>
                         <Text style={styles.textsStyles}>New Password</Text>
@@ -551,7 +551,7 @@ class Signup extends React.Component {
                     {this.state.errorMessageState ? <View style={styles.passMatchContainer}>
                         <Text style={styles.passNotMatchStyle}>
                             {this.state.errorMessage}
-                        </Text>}
+                        </Text>
                     </View>
                         :
                         null

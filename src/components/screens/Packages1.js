@@ -158,7 +158,7 @@ class PackagesScreen1 extends React.Component {
                         </TouchableOpacity>
 
                         <TouchableOpacity style={[styles.cardMainCon, { backgroundColor: this.state.card2Color ? '#447BBE' : 'white' }]}
-                            onPress={() => this.ChangeBgColor('card2')}>
+                            onPress={() => { this.ChangeBgColor('card2'); this.setModalVisible(true); }}>
                             <View style={styles.plan}>
                                 <Text style={styles.cardText}>Quran Khuwani</Text>
 
@@ -177,7 +177,7 @@ class PackagesScreen1 extends React.Component {
                         </TouchableOpacity>
 
                         <TouchableOpacity style={[styles.cardMainCon, { backgroundColor: this.state.card3Color ? '#447BBE' : 'white' }]}
-                            onPress={() => this.ChangeBgColor('card3')}>
+                            onPress={() => { this.ChangeBgColor('card3'); this.setModalVisible(true); }}>
                             <View style={styles.plan}>
                                 <Text style={styles.cardText}>Quran Khuwani</Text>
 
@@ -196,7 +196,7 @@ class PackagesScreen1 extends React.Component {
                         </TouchableOpacity>
 
                         <TouchableOpacity style={[styles.cardMainCon, { backgroundColor: this.state.card4Color ? '#447BBE' : 'white' }]}
-                            onPress={() => this.ChangeBgColor('card4')}>
+                            onPress={() => { this.ChangeBgColor('card4'); this.setModalVisible(true); }}>
                             <View style={styles.plan}>
                                 <Text style={styles.cardText}>Quran Khuwani</Text>
 
