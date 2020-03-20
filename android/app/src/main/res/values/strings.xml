@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ProvideMeService</string>
+    <!-- <string name="fb_login_protocol_scheme">fb3126230254063114</string>-->
+    <!-- <string name="facebook_app_id">3126230254063114</string>  -->
+    <string name="server_client_id">130141256378-t63j6bp9g6k1ib0k5gefnqiasl328jqk.apps.googleusercontent.com</string>
 </resources>
+    

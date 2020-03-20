@@ -33,7 +33,6 @@ class CompleteReg extends React.Component {
             name: '',
             email: '',
             number: '',
-            nicNumber: '',
             address: '',
             position: 'top',
             singupvalue: this.props.navigation.state.params.singupvalue,
@@ -44,10 +43,10 @@ class CompleteReg extends React.Component {
 
     CompleteRegisteration = async () => {
         const { navigate } = this.props.navigation;
-        const { nicNumber, address, singupvalue } = this.state;
+        const { address, singupvalue } = this.state;
 
 
-        singupvalue.nicNumber = this.state.nicNumber
+        // singupvalue.nicNumber = this.state.nicNumber
         singupvalue.address = this.state.address
         console.log("singupvalue")
         try {
@@ -72,7 +71,7 @@ class CompleteReg extends React.Component {
     render() {
         const FullName = this.state.singupvalue.name + this.state.singupvalue.lastName;
         console.log('FullName>>>>', FullName)
-        const { shortPrice, medical, transformation, partum, singupvalue, nicNumber, address } = this.state;
+        const { shortPrice, medical, transformation, partum, singupvalue, address } = this.state;
         const { navigate, } = this.props.navigation;
         console.log('signupvalue>>>', singupvalue)
 
@@ -112,7 +111,7 @@ class CompleteReg extends React.Component {
                             </View>
                         </View>
 
-                        <View style={{ marginTop: 50, paddingHorizontal: 5, }}>
+                        {/* <View style={{ marginTop: 50, paddingHorizontal: 5, }}>
                             <View style={{ flexDirection: 'row', marginVertical: 8 }}>
                                 <Text style={styles.textsStyles}>CNIC Number</Text>
                             </View>
@@ -125,7 +124,7 @@ class CompleteReg extends React.Component {
                                     value={nicNumber}
                                     style={styles.inputTexts} />
                             </View>
-                        </View>
+                        </View> */}
 
                         <View style={{ paddingHorizontal: 5, }}>
                             <View style={{ flexDirection: 'row', marginVertical: 8 }}>

@@ -19,6 +19,8 @@ const db = firebase.database();
 // console.log('firebase credential >>>', firebase)
 // import firebasePushNotification from 'react-native-firebase';
 import OverlayLoader from '../Loader/OverlaySpinner';
+import { GoogleSignin, GoogleSigninButton, statusCodes, } from '@react-native-community/google-signin';
+// import { LoginButton, AccessToken } from 'react-native-fbsdk';
 // import 'firebase/firestore';
 
 const { height } = Dimensions.get('window');
@@ -39,7 +41,8 @@ class Login extends React.Component {
       psswrdNotMatchShow: false,
       emailAndPasswrd: false,
       deviceToken: '',
-      errorMessage: ''
+      errorMessage: '',
+      loggedIn: false,
     }
     //this.checkUserLogin()
   }
@@ -49,6 +52,65 @@ class Login extends React.Component {
   componentWillUnmount() {
     this.focusListener.remove();
   }
+
+  // async componentDidMount() {
+  //   this._configureGoogleSignIn();
+  //   await this._getCurrentUser();
+  // }
+
+  // _configureGoogleSignIn() {
+  //   GoogleSignin.configure({
+  //     webClientId: "130141256378-3f9k024bjv0aeniq5ta4d7k5rrfqhmul.apps.googleusercontent.com",
+  //     offlineAccess: false,
+  //   });
+  // }
+
+  componentDidMount() {
+    GoogleSignin.configure({
+      client_type: '130141256378-3f9k024bjv0aeniq5ta4d7k5rrfqhmul.apps.googleusercontent.com',
+      // androidClientId: '130141256378-ukn1ilric6pkm8k8gm5q31jai76i47n2.apps.googleusercontent.com',
+      // offlineAccess: true,
+      // hostedDomain: '', 
+      // forceConsentPrompt: true, 
+    });
+  }
+
+  _signIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      //this.setState({ userInfo, loggedIn: true });
+      console.log('Userinfo>>', userInfo)
+    }
+    catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (e.g. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+      } else {
+        // some other error happened
+        console.log('error', error.toString())
+        Alert.alert('error', error.toString())
+      }
+    }
+
+  };
+
+  getCurrentUserInfo = async () => {
+    try {
+      const userInfo = await GoogleSignin.signInSilently();
+      //this.setState({ userInfo });
+      console.log('userinfo>>', userInfo)
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_REQUIRED) {
+        // user has not signed in yet
+      } else {
+        // some other error
+      }
+    }
+  };
 
   // Start here firebase push notification
   // getTokenPermission=()=>{
@@ -335,6 +397,44 @@ class Login extends React.Component {
           </TouchableOpacity>
           <View style={{ flex: 1 }}></View>
         </View>
+
+        <View style={{ flex: 1 }}></View>
+        <View style={{ flexDirection: 'row' }}>
+          <View style={{ flex: 1 }}></View>
+          <GoogleSigninButton
+            style={{ width: 192, height: 48 }}
+            size={GoogleSigninButton.Size.Wide}
+            color={GoogleSigninButton.Color.Light}
+            onPress={this._signIn}
+          // disabled={this.state.isSigninInProgress} 
+          />
+          <View style={{ flex: 1 }}></View>
+        </View>
+
+        {/* <View style={{ flex: 1 }}></View>
+        <View style={{ flexDirection: 'row' }}>
+          <View style={{ flex: 1 }}></View>
+          <LoginButton
+            onLoginFinished={
+              (error, result) => {
+                if (error) {
+                  console.log("login has error: " + result.error);
+                } else if (result.isCancelled) {
+                  console.log("login is cancelled.");
+                } else {
+                  AccessToken.getCurrentAccessToken().then(
+                    (data) => {
+                      console.log(data.accessToken.toString())
+                    }
+                  )
+                }
+              }
+            }
+            onLogoutFinished={() => console.log("logout.")} />
+          <View style={{ flex: 1 }}></View>
+        </View> */}
+
+
         <View style={{ flex: 2, flexDirection: 'row', justifyContent: 'flex-start', marginTop: 35, marginBottom: 12 }}>
           <TouchableOpacity style={styles.resetPassContainer} onPress={() => { navigate('ResetpasswordScreen') }} >
             <Text style={styles.resetPasswrdTextStyle}>Forgot password ? </Text>

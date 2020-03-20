@@ -11,6 +11,8 @@ import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import co.apptailor.googlesignin.RNGoogleSigninPackage;
+
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -27,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
+          new RNGoogleSigninPackage();
           return packages;
         }
 
@@ -44,6 +47,8 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+    // FacebookSdk.sdkInitialize(getApplicationContext());
+    // AppEventsLogger.activateApp(this);
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this); // Remove this line if you don't want Flipper enabled
   }

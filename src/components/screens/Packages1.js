@@ -20,7 +20,8 @@ import Toast, { DURATION } from 'react-native-easy-toast';
 import CaloriesSetupBtn from '../buttons/setUpBtn';
 import MySearch from '../SearchBar/MySearchBar';
 import Modal from "react-native-modal";
-import DatePicker from 'react-native-datepicker'
+import DatePicker from 'react-native-datepicker';
+import { Dropdown } from 'react-native-material-dropdown';
 
 
 class PackagesScreen1 extends React.Component {
@@ -47,8 +48,19 @@ class PackagesScreen1 extends React.Component {
             date: "",
             showPickerCheck: false,
 
-        }
+            foodItems: [{
+                value: 'Biryani',
+            },
+            {
+                value: 'Qorma',
+            },
+            {
+                value: 'Kofty',
+            },
 
+            ],
+
+        }
     }
 
     ChangeBgColor = (values) => {
@@ -98,9 +110,6 @@ class PackagesScreen1 extends React.Component {
         }
     }
 
-
-
-
     removeModal = () => {
         // const { navigate } = this.props.navigation;
         this.setState({
@@ -112,7 +121,8 @@ class PackagesScreen1 extends React.Component {
     }
 
     render() {
-        const { shortPrice, medical, transformation, partum, forTrainnerModal, } = this.state;
+        const { shortPrice, medical, transformation, partum, forTrainnerModal, foodItems } = this.state;
+        const { navigate } = this.props.navigation;
 
         return (
             <View style={styles.container2}>
@@ -140,7 +150,11 @@ class PackagesScreen1 extends React.Component {
                         </View>
 
                         <TouchableOpacity style={[styles.cardMainCon, { backgroundColor: this.state.card1Color ? '#447BBE' : 'white' }]}
-                            onPress={() => { this.ChangeBgColor('card1'); this.setModalVisible(true); }}>
+                            onPress={() => {
+                                this.ChangeBgColor('card1');
+                                this.setModalVisible(true);
+                                //navigate('PackageDetails');
+                            }}>
                             <View style={styles.plan}>
                                 <Text style={styles.cardText}>Quran Khuwani</Text>
                                 <View style={{ flexDirection: 'row', }}>
@@ -238,7 +252,7 @@ class PackagesScreen1 extends React.Component {
                                     <View style={styles.modaMainCont}>
                                         <View style={styles.modalChildCont}>
                                             <Text style={styles.modalTxt}>
-                                                Details for Biryani Charity
+                                                Details for Food Charity
                                                 </Text>
                                             <View style={{ paddingTop: 5 }}>
                                                 <Text style={{ color: '#E5E5E5', }}>
@@ -247,9 +261,48 @@ class PackagesScreen1 extends React.Component {
                                             </View>
                                         </View>
 
+                                        <View style={styles.foodMainCont}>
+                                            <Dropdown
+                                                label='Food Catetogies'
+                                                data={foodItems}
+                                            //onChangeText={this.onChangeText}
+                                            />
+                                        </View>
+
                                         <View style={styles.quaMainCont}>
                                             <Text style={{ color: '#E5E5E5', }}>
-                                                Quantity
+                                                Daigs Quantity
+                                                </Text>
+
+
+                                            <View style={{ flexDirection: 'row' }}>
+                                                <TouchableOpacity style={{ margin: 1, }}>
+                                                    <Text style={styles.quaIncSty}>
+                                                        +
+                                                </Text>
+                                                </TouchableOpacity >
+
+                                                <View style={{ margin: 3, }}>
+                                                    <TextInput style={styles.textInpsty}
+                                                        underlineColorAndroid="transparent"
+                                                        placeholder="15"
+                                                        placeholderTextColor="black"
+                                                        autoCapitalize="none"
+                                                        underlineColorAndroid="#E5E5E5" />
+
+                                                </View>
+
+                                                <TouchableOpacity>
+                                                    <Text style={styles.quaDecSty}>
+                                                        -
+                                                </Text>
+                                                </TouchableOpacity>
+                                            </View>
+                                        </View>
+
+                                        <View style={styles.quaMainCont}>
+                                            <Text style={{ color: '#E5E5E5', }}>
+                                                Daigs KG's
                                                 </Text>
 
 
@@ -518,7 +571,9 @@ class PackagesScreen1 extends React.Component {
                 </ScrollView>
 
                 <View style={styles.cartMainCon}>
-                    <TouchableOpacity style={styles.cartCont} onPress={() => this.props.navigation.navigate('Cart')}>
+                    <TouchableOpacity style={styles.cartCont} onPress={() => navigate('PackageDetails')
+                        //this.props.navigation.navigate('Cart')
+                    }>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
                             <Text style={styles.goToCartText}> Go to cart</Text>
                         </View>

@@ -27,7 +27,7 @@ class OverlayLoader extends React.Component {
                     textContent={'Loading...'}
                     //Text style of the Spinner Text
                     textStyle={styles.spinnerTextStyle}
-                    color={'#FF6200'}
+                    color={'#447BBE'}
                 />
             </View>
         )
@@ -42,6 +42,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     spinnerTextStyle: {
-        color: '#FF6200',
+        color: '#447BBE',
     },
 })

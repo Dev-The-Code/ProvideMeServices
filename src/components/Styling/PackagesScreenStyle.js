@@ -290,7 +290,12 @@ const styles = StyleSheet.create({
         height: 15,
         width: 20,
         marginTop: 4
-    }
+    },
+
+    foodMainCont: {
+        marginHorizontal: 15,
+        //marginVertical: 5
+    },
 })
 
 export default styles;

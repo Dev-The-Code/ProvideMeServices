@@ -19,6 +19,7 @@ import UserType from '../screens/UserType';
 import CompleteReg from '../screens/CompleteReg';
 import Payment from '../screens/PaymentScreen';
 import BookingRec from '../screens/BookingRec';
+import PackageDetails from '../screens/PackageDetails';
 // import Payment from '../screens/PaymentScreen';
 // import Setupscreen1 from '../screens/SetUpScreen1';
 // import Setupscreen from '../screens/SetUpScreen';
@@ -88,6 +89,7 @@ const MainNavigator = createStackNavigator({
   Homescreen: {
     screen: Homescreen
   },
+
   ChatBox: {
     screen: Chatscreen,
     navigationOptions: {
@@ -95,6 +97,10 @@ const MainNavigator = createStackNavigator({
         elevation: 0,
       }
     }
+  },
+
+  PackageDetails: {
+    screen: PackageDetails
   },
 
   BookingRec: {
