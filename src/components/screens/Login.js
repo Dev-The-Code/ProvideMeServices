@@ -20,7 +20,8 @@ const db = firebase.database();
 // import firebasePushNotification from 'react-native-firebase';
 import OverlayLoader from '../Loader/OverlaySpinner';
 import { GoogleSignin, GoogleSigninButton, statusCodes, } from '@react-native-community/google-signin';
-// import { LoginButton, AccessToken } from 'react-native-fbsdk';
+
+import { LoginButton, AccessToken, LoginManager, GraphRequest, GraphRequestManager } from 'react-native-fbsdk';
 // import 'firebase/firestore';
 
 const { height } = Dimensions.get('window');
@@ -111,6 +112,81 @@ class Login extends React.Component {
       }
     }
   };
+
+  getCurrentUser = async () => {
+    const currentUser = await GoogleSignin.getCurrentUser();
+    this.setState({ currentUser });
+    console.log('currentUser>>', currentUser)
+  };
+
+
+  // Facebook Functions
+  initUser = (token) => {
+    fetch('https://graph.facebook.com/v2.5/me?fields=email,first_name,last_name,friends&access_token=' + token)
+      .then((response) => {
+        response.json().then((json) => {
+          const ID = json.id
+          console.log("ID >>" + ID);
+
+          const EM = json.email
+          console.log("Email>> " + EM);
+
+          const FN = json.first_name
+          console.log("First Name >>" + FN);
+
+          const LN = json.last_name
+          console.log("last Name >>" + LN);
+        })
+        // const responseInfoCallback = (error, result) => {
+        //   if (error) {
+        //     console.log(error)
+        //     alert('Error fetching data: ' + error.toString());
+        //   } else {
+        //     console.log(result)
+        //     alert('Success fetching data: ' + result.toString());
+        //   }
+        // }
+
+        // const infoRequest = new GraphRequest(
+        //   '/me',
+        //   {
+        //     accessToken: accessToken,
+        //     parameters: {
+        //       fields: {
+        //         string: 'email,name,first_name,middle_name,last_name'
+        //       }
+        //     }
+        //   },
+        //   responseInfoCallback
+        // );
+
+        // // Start the graph request.
+        // new GraphRequestManager().addRequest(infoRequest).start()
+      })
+      .catch(() => {
+        console.log('ERROR GETTING DATA FROM FACEBOOK')
+      })
+  }
+
+  // initUser(token) {
+  //   fetch('https://graph.facebook.com/v2.5/me?fields=email,name,friends&access_token=' + token)
+  //     .then((response) => response.json())
+  //     .then((json) => {
+  //       // Some user object has been set up somewhere, build that user here
+  //       user.name = json.name
+  //       user.id = json.id
+  //       user.user_friends = json.friends
+  //       user.email = json.email
+  //       user.username = json.name
+  //       user.loading = false
+  //       user.loggedIn = true
+  //       user.avatar = setAvatar(json.id)
+  //     })
+  //     .catch(() => {
+  //       reject('ERROR GETTING DATA FROM FACEBOOK')
+  //     })
+  // }
+
 
   // Start here firebase push notification
   // getTokenPermission=()=>{
@@ -406,33 +482,92 @@ class Login extends React.Component {
             size={GoogleSigninButton.Size.Wide}
             color={GoogleSigninButton.Color.Light}
             onPress={this._signIn}
-          // disabled={this.state.isSigninInProgress} 
+            disabled={this.state.isSigninInProgress}
           />
           <View style={{ flex: 1 }}></View>
         </View>
 
-        {/* <View style={{ flex: 1 }}></View>
+
+        {/* Facebook Work */}
+
+        <View style={{ flex: 1 }}></View>
         <View style={{ flexDirection: 'row' }}>
           <View style={{ flex: 1 }}></View>
+
           <LoginButton
+            readPermissions={['public_profile', 'email', 'user_birthday']}
             onLoginFinished={
               (error, result) => {
                 if (error) {
-                  console.log("login has error: " + result.error);
+                  alert("login has error: " + result.error);
                 } else if (result.isCancelled) {
-                  console.log("login is cancelled.");
+                  alert("login is cancelled.");
                 } else {
+
                   AccessToken.getCurrentAccessToken().then(
                     (data) => {
-                      console.log(data.accessToken.toString())
+                      let accessToken = data.accessToken
+                      console.log(accessToken.toString())
+
+
+
+                      const responseInfoCallback = (error, result) => {
+                        if (error) {
+                          console.log(error)
+                          console.log('Error fetching data: ' + error.toString());
+                        } else {
+                          console.log(result)
+                          console.log('Success fetching data: ' + result.toString());
+                        }
+
+                      }
+                      const infoRequest = new GraphRequest(
+                        '/me',
+                        {
+                          accessToken: accessToken,
+                          parameters: {
+                            fields: {
+                              string: 'email,name,first_name,middle_name,last_name'
+                            }
+                          }
+                        },
+                        responseInfoCallback
+                      );
+
+                      // Start the graph request.
+                      new GraphRequestManager().addRequest(infoRequest).start()
+
                     }
                   )
+
                 }
               }
             }
             onLogoutFinished={() => console.log("logout.")} />
+          {/* <LoginButton
+            publishPermissions={['publish_actions']}
+            readPermissions={['public_profile', 'email']}
+            onLoginFinished={
+              (error, result) => {
+                if (error) {
+                  console.log('login has error: ', result.error)
+                } else if (result.isCancelled) {
+                  console.log('login is cancelled.')
+                } else {
+                  AccessToken.getCurrentAccessToken().then((data) => {
+                    const { accessToken } = data
+                    console.log('UserInfo>>>', data);
+                    this.initUser(accessToken)
+                  })
+                }
+              }
+            }
+            onLogoutFinished={() => {
+              console.log('Logout');
+            }}
+          /> */}
           <View style={{ flex: 1 }}></View>
-        </View> */}
+        </View>
 
 
         <View style={{ flex: 2, flexDirection: 'row', justifyContent: 'flex-start', marginTop: 35, marginBottom: 12 }}>
