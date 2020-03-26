@@ -44,6 +44,7 @@ class Login extends React.Component {
       deviceToken: '',
       errorMessage: '',
       loggedIn: false,
+      userInfo: {}
     }
     //this.checkUserLogin()
   }
@@ -68,9 +69,9 @@ class Login extends React.Component {
 
   componentDidMount() {
     GoogleSignin.configure({
-      client_type: '130141256378-3f9k024bjv0aeniq5ta4d7k5rrfqhmul.apps.googleusercontent.com',
-      // androidClientId: '130141256378-ukn1ilric6pkm8k8gm5q31jai76i47n2.apps.googleusercontent.com',
-      // offlineAccess: true,
+      webClientId: '130141256378-3f9k024bjv0aeniq5ta4d7k5rrfqhmul.apps.googleusercontent.com',
+      androidClientId: '130141256378-dsrgcm1cp71068jba42vo1f5h3n3d8tq.apps.googleusercontent.com',
+      //offlineAccess: true,
       // hostedDomain: '', 
       // forceConsentPrompt: true, 
     });
@@ -79,8 +80,11 @@ class Login extends React.Component {
   _signIn = async () => {
     try {
       await GoogleSignin.hasPlayServices();
+      const currentUser = GoogleSignin.getTokens().then((res) => {
+        console.log(res.accessToken);
+      });
       const userInfo = await GoogleSignin.signIn();
-      //this.setState({ userInfo, loggedIn: true });
+      this.setState({ userInfo, loggedIn: true });
       console.log('Userinfo>>', userInfo)
     }
     catch (error) {
@@ -120,73 +124,28 @@ class Login extends React.Component {
   };
 
 
+
   // Facebook Functions
-  initUser = (token) => {
-    fetch('https://graph.facebook.com/v2.5/me?fields=email,first_name,last_name,friends&access_token=' + token)
-      .then((response) => {
-        response.json().then((json) => {
-          const ID = json.id
-          console.log("ID >>" + ID);
-
-          const EM = json.email
-          console.log("Email>> " + EM);
-
-          const FN = json.first_name
-          console.log("First Name >>" + FN);
-
-          const LN = json.last_name
-          console.log("last Name >>" + LN);
-        })
-        // const responseInfoCallback = (error, result) => {
-        //   if (error) {
-        //     console.log(error)
-        //     alert('Error fetching data: ' + error.toString());
-        //   } else {
-        //     console.log(result)
-        //     alert('Success fetching data: ' + result.toString());
-        //   }
-        // }
-
-        // const infoRequest = new GraphRequest(
-        //   '/me',
-        //   {
-        //     accessToken: accessToken,
-        //     parameters: {
-        //       fields: {
-        //         string: 'email,name,first_name,middle_name,last_name'
-        //       }
-        //     }
-        //   },
-        //   responseInfoCallback
-        // );
-
-        // // Start the graph request.
-        // new GraphRequestManager().addRequest(infoRequest).start()
-      })
-      .catch(() => {
-        console.log('ERROR GETTING DATA FROM FACEBOOK')
-      })
+  getInfoFromToken = token => {
+    const PROFILE_REQUEST_PARAMS = {
+      fields: {
+        string: 'id, name, first_name, last_name, email',
+      },
+    };
+    const profileRequest = new GraphRequest(
+      '/me',
+      { token, parameters: PROFILE_REQUEST_PARAMS },
+      (error, result) => {
+        if (error) {
+          console.log('login info has error: ' + error);
+        } else {
+          this.setState({ userInfo: result });
+          console.log('result:', result);
+        }
+      },
+    );
+    new GraphRequestManager().addRequest(profileRequest).start();
   }
-
-  // initUser(token) {
-  //   fetch('https://graph.facebook.com/v2.5/me?fields=email,name,friends&access_token=' + token)
-  //     .then((response) => response.json())
-  //     .then((json) => {
-  //       // Some user object has been set up somewhere, build that user here
-  //       user.name = json.name
-  //       user.id = json.id
-  //       user.user_friends = json.friends
-  //       user.email = json.email
-  //       user.username = json.name
-  //       user.loading = false
-  //       user.loggedIn = true
-  //       user.avatar = setAvatar(json.id)
-  //     })
-  //     .catch(() => {
-  //       reject('ERROR GETTING DATA FROM FACEBOOK')
-  //     })
-  // }
-
 
   // Start here firebase push notification
   // getTokenPermission=()=>{
@@ -387,7 +346,7 @@ class Login extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     const { email, password, psswrdInstruction, isLoading, passwordNotMatch, psswrdNotMatchShow, emailAndPasswrd } = this.state;
-    console.log('error >>', this.state.errorMessage)
+    //console.log('error >>', this.state.errorMessage)
     return (
       <ScrollView style={{ flex: 1, backgroundColor: '#FFFFFF', height: height }} contentContainerStyle={{ flexGrow: 1 }} >
         <View style={styles.loginTextContainer}>
@@ -495,80 +454,77 @@ class Login extends React.Component {
           <View style={{ flex: 1 }}></View>
 
           <LoginButton
-            readPermissions={['public_profile', 'email', 'user_birthday']}
-            onLoginFinished={
-              (error, result) => {
-                if (error) {
-                  alert("login has error: " + result.error);
-                } else if (result.isCancelled) {
-                  alert("login is cancelled.");
-                } else {
-
-                  AccessToken.getCurrentAccessToken().then(
-                    (data) => {
-                      let accessToken = data.accessToken
-                      console.log(accessToken.toString())
-
-
-
-                      const responseInfoCallback = (error, result) => {
-                        if (error) {
-                          console.log(error)
-                          console.log('Error fetching data: ' + error.toString());
-                        } else {
-                          console.log(result)
-                          console.log('Success fetching data: ' + result.toString());
-                        }
-
-                      }
-                      const infoRequest = new GraphRequest(
-                        '/me',
-                        {
-                          accessToken: accessToken,
-                          parameters: {
-                            fields: {
-                              string: 'email,name,first_name,middle_name,last_name'
-                            }
-                          }
-                        },
-                        responseInfoCallback
-                      );
-
-                      // Start the graph request.
-                      new GraphRequestManager().addRequest(infoRequest).start()
-
-                    }
-                  )
-
-                }
+            permissions={['public_profile', 'email']}
+            onLoginFinished={(error, result) => {
+              if (error) {
+                console.log('login has error: ' + result.error);
+              } else if (result.isCancelled) {
+                console.log('login is cancelled.');
+              } else {
+                AccessToken.getCurrentAccessToken().then(data => {
+                  const accessToken = data.accessToken.toString();
+                  this.getInfoFromToken(accessToken);
+                  console.log("Token>>", accessToken)
+                });
               }
-            }
-            onLogoutFinished={() => console.log("logout.")} />
-          {/* <LoginButton
-            publishPermissions={['publish_actions']}
-            readPermissions={['public_profile', 'email']}
-            onLoginFinished={
-              (error, result) => {
-                if (error) {
-                  console.log('login has error: ', result.error)
-                } else if (result.isCancelled) {
-                  console.log('login is cancelled.')
-                } else {
-                  AccessToken.getCurrentAccessToken().then((data) => {
-                    const { accessToken } = data
-                    console.log('UserInfo>>>', data);
-                    this.initUser(accessToken)
-                  })
-                }
-              }
-            }
-            onLogoutFinished={() => {
-              console.log('Logout');
             }}
-          /> */}
+            onLogoutFinished={() => {
+              console.log("logout")
+              this.setState({ userInfo: {} })
+            }
+
+            }
+          />
           <View style={{ flex: 1 }}></View>
         </View>
 
+        {/* <LoginButton
+            permissions={['public_profile', 'email']}
+            onLoginFinished={(error, result) => {
+              if (error) {
+                console.log('login has error: ' + result.error);
+              } else if (result.isCancelled) {
+                console.log('login is cancelled.');
+              }
+              else {
+                AccessToken.getCurrentAccessToken()
+                  .then((user) => {
+                    console.log("Facebook accessToken:\n" + user.accessToken + "\n\nuserID: " + user.userID)
+                    console.log(user);
+                    return user
+                  })
+                  .then((user) => {
+                    const responseInfoCallback = (error, result) => {
+                      if (error) {
+                        console.log(error)
+                        console.log('Error fetching data: ' + error.toString());
+                      } else {
+                        console.log(result)
+                        console.log('id: ' + result.id + '\n\nname: ' + result.name + '\n\nfirst_name: ' + result.first_name + '\n\nlast_name: ' + result.last_name + '\n\nemail: ' + result.email);
+                      }
+                    }
+
+                    const infoRequest = new GraphRequest('/me', {
+                      accessToken: user.accessToken,
+                      parameters: {
+                        fields: {
+                          string: 'email,name,first_name,last_name'
+                        }
+                      }
+                    }, responseInfoCallback);
+
+                    // Start the graph request.
+                    new GraphRequestManager()
+                      .addRequest(infoRequest)
+                      .start()
+                  })
+              }
+            }}
+            onLogoutFinished={() =>
+              console.log("logout.")
+              //  this.setState({ userInfo: {} })
+            }
+          /> */}
 
         <View style={{ flex: 2, flexDirection: 'row', justifyContent: 'flex-start', marginTop: 35, marginBottom: 12 }}>
           <TouchableOpacity style={styles.resetPassContainer} onPress={() => { navigate('ResetpasswordScreen') }} >

@@ -54,7 +54,7 @@ public class MainApplication extends Application implements ReactApplication {
     // AppEventsLogger.activateApp(this);
     FacebookSdk.setApplicationId("3126230254063114");
   FacebookSdk.sdkInitialize(this);
-  AppEventsLogger.activateApp(this);
+  // AppEventsLogger.activateApp(this);
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this); // Remove this line if you don't want Flipper enabled
   }
