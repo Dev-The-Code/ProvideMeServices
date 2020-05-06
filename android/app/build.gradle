@@ -146,11 +146,19 @@ android {
         }
     }
     signingConfigs {
-        debug {
-            storeFile file('my_release.keystore')
-            storePassword 'sheraz123'
-            keyAlias 'sheeraz'
-            keyPassword 'sheraz123'
+        // debug {
+        //     storeFile file('my_release.keystore')
+        //     storePassword 'sheraz123'
+        //     keyAlias 'sheeraz'
+        //     keyPassword 'sheraz123'
+        // }
+        release {
+            // if (project.hasProperty('MYAPP_UPLOAD_STORE_FILE')) {
+                storeFile file('my_release_key.keystore')
+                storePassword 'getfit'
+                keyAlias 'waqasmumtaz'
+                keyPassword 'getfit'
+            // }
         }
     }
     buildTypes {
@@ -182,6 +190,8 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-svg')
+    implementation project(':react-native-maps')
     implementation project(':react-native-firebase')
     implementation project(':react-native-gesture-handler')
     implementation fileTree(dir: "libs", include: ["*.jar"])
