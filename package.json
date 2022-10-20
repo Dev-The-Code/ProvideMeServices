@@ -41,7 +41,7 @@
     "react-native-progress-wheel": "^1.0.4",
     "react-native-range-slider": "^0.1.2",
     "react-native-ratings": "^6.5.0",
-    "react-native-reanimated": "^1.4.0",
+    "react-native-reanimated": "^2.10.0",
     "react-native-screens": "^1.0.0-alpha.23",
     "react-native-slider": "^0.11.0",
     "react-native-svg": "^12.1.0",
